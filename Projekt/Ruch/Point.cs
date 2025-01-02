@@ -4,6 +4,9 @@ public readonly struct Point
 {
     public readonly int? X, Y, V, W;
     public Point(int? x, int? y, int? v, int? w) => (X, Y, V, W) = (x, y, v, w);
+
+    public override string ToString() => $"({X}, {Y}, {V}, {W})";
+
     public Point Next(Direction direction)
     {
         Point outcome = default;
