@@ -63,7 +63,6 @@ public abstract class Map
             return new List<IMappable>();
         }
     }
-
     public virtual bool Exist(Point p)
     {
         if(p.X == null)
@@ -75,6 +74,5 @@ public abstract class Map
             return ((p.X < this.SizeX && p.Y < this.SizeY/2) && (p.X >= 0 && p.Y >= 0));
         }
     }
-
     public Point Next(Point p, Direction d) => FNext?.Invoke(this, p, d) ?? p;
 }

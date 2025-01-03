@@ -1,6 +1,4 @@
-﻿
-namespace Projekt.Mapy;
-
+﻿namespace Projekt.Mapy;
 internal class MoveRules
 {
     public static Point WallNext(Map m, Point p, Direction d)

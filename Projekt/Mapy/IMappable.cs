@@ -1,6 +1,4 @@
-﻿
-namespace Projekt.Mapy;
-
+﻿namespace Projekt.Mapy;
 public interface IMappable
 {
     public char Symbol { get; }
