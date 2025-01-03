@@ -13,6 +13,7 @@ public class PointTest
     [InlineData(null, null, 1, 0, Direction.DownLeft, 1, 0, null, null)]
     [InlineData(null, null, 1, 0, Direction.Left, null, null, 0, 0)]
     [InlineData(null, null, 1, 0, Direction.TopLeft, 1, 1, null, null)]
+    [InlineData(0, 0, null, null, Direction.DownRight, null, null, 0, -1)]
 
     public void Next_ShouldReturnCorrectPoint(int? x, int? y, int? v, int? w, Direction d, int? expX, int? expY, int? expV, int? expW)
     {
@@ -24,4 +25,6 @@ public class PointTest
 
         Assert.Equal(e, next);
     }
+
+
 }
