@@ -14,6 +14,8 @@ public abstract class Map
         if (sizeX < 5) throw new ArgumentOutOfRangeException(nameof(sizeX), "Too narrow (X)");
         if (sizeY < 5) throw new ArgumentOutOfRangeException(nameof(sizeY), "Too short (Y)");
 
+        if (sizeY % 2 != 0) throw new ArgumentOutOfRangeException("Size Y need to by dividable by 2");
+
         SizeX = sizeX;
         SizeY = sizeY;
     }
@@ -71,7 +73,7 @@ public abstract class Map
         }
         else
         {
-            return ((p.X < this.SizeX && p.Y < this.SizeY/2) && (p.X >= 0 && p.Y >= 0));
+            return ((p.X < this.SizeX && p.Y < (double)this.SizeY/2) && (p.X >= 0 && p.Y >= 0));
         }
     }
     public Point Next(Point p, Direction d) => FNext?.Invoke(this, p, d) ?? p;
