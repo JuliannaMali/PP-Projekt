@@ -9,7 +9,6 @@ internal class MoveRules
             return p.Next(d);
         return p;
     }
-
     public static Point CrossNext(Map m, Point p, Direction d)
     {
         if(!m.Exist(p.Next(d)))
@@ -41,46 +40,39 @@ internal class MoveRules
                         return new Point(null, null, 0, p.Y);
                     }
                 case Direction.DownLeft:
-                {
-                        break;
-                }
-            }
-
-            if(p.V == null)
-            {
-                switch(d)
-                {
-                    case Direction.DownLeft:
+                    {
+                        if(m.SizeY%2 == 0) 
+                        //na górze są V/W
                         {
                             if (p.X == 0)
-                                return new Point(m.SizeX - 1, m.SizeY/2, null, null);
-                            return new Point(p.X - 1, m.SizeY/2, null, null);
+                                return new Point(null, null, m.SizeX - 1, m.SizeY/2);
+                            return new Point(null, null, p.X - 1, m.SizeY / 2);
                         }
-                    case Direction.DownRight:
-                        {
-                            if (p.X == m.SizeX - 1)
-                                return new Point(0, m.SizeY / 2, null, null);
-                            return new Point(p.X + 1, m.SizeY / 2, null, null);
-                        }
-                }
-            }
-            else
-            {
-                switch (d)
-                {
-                    case Direction.DownLeft:
+                        else
+                        //na górze są X/Y
                         {
                             if (p.X == 0)
                                 return new Point(m.SizeX - 1, m.SizeY / 2, null, null);
                             return new Point(p.X - 1, m.SizeY / 2, null, null);
                         }
-                    case Direction.DownRight:
+                    }
+                case Direction.DownRight:
+                    {
+                        if (m.SizeY % 2 == 0)
+                        //na górze są V/W
+                        {
+                            if (p.X == m.SizeX - 1)
+                                return new Point(null, null, 0, m.SizeY / 2);
+                            return new Point(null, null, p.X + 1, m.SizeY / 2);
+                        }
+                        else
+                        //na górze są X/Y
                         {
                             if (p.X == m.SizeX - 1)
                                 return new Point(0, m.SizeY / 2, null, null);
                             return new Point(p.X + 1, m.SizeY / 2, null, null);
                         }
-                }
+                    }
             }
         }
         return p.Next(d);
