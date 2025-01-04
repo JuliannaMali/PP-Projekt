@@ -1,0 +1,64 @@
+body {
+    background-color: gray;
+}
+
+div#firstGame {
+
+}
+
+div#mapa1 {
+    display: grid;
+    grid-template-columns: max-content repeat(19, max-content);
+    grid-template-rows: repeat(16, 1fr) max-content;
+    align-items: center;
+    margin: auto;
+    width:59vw;
+
+    background-color: rgba(0,0,0,0.2);
+    padding: 10px 100px 10px 40px;
+    border: 2px solid black;
+    border-radius: 40px
+}
+
+svg > defs > clipPath > polygon {
+    stroke: blue;
+    stroke-width: 3;
+
+}
+div > div * {
+/*    height: 5vh;
+    width: 3vw;*/
+    height: 40vh;
+    width: 24vw;
+    border: 1px solid crimson;
+}
+
+image {
+    border: 3px solid;
+    height: 10vh;
+    width: 6vw;
+}
+
+polygon#obramowka {
+    fill: lightblue;
+    stroke: black;
+    stroke-width: 2px;
+}
+
+div#5 {
+    position: absolute;
+
+}
+div#4 {
+    position: absolute;
+    top: calc(147.9px * 2 - 4px)
+}
+
+
+div#3 {
+    position: absolute;
+    left: 110.5px;
+    top: 147.9px
+}
+
+
