@@ -8,7 +8,7 @@ public class Knight : Character, IMappable
     private double defense;
 
     //Mthds
-    public Knight(int level, int def)
+    public Knight(int level, double def)
     {
         defense = def;
         hp = level * 50;

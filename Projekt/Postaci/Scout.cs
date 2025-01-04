@@ -8,7 +8,7 @@ public class Scout : Character, IMappable
     private double agility;
 
     //Mthds
-    public Scout(int level, int agi)
+    public Scout(int level, double agi)
     {
         agility = agi;
         hp = level * 50;
