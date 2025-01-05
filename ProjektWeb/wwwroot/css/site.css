@@ -2,14 +2,11 @@ body {
     background-color: gray;
 }
 
-div#firstGame {
-
-}
 
 div#mapa1 {
-    display: grid;
-    grid-template-columns: max-content repeat(19, max-content);
-    grid-template-rows: repeat(16, 1fr) max-content;
+/*    display: flex;*/
+/*    grid-template-columns: max-content repeat(16, max-content);
+    grid-template-rows: repeat(12, 1fr) max-content;*/
     align-items: center;
     margin: auto;
     width:59vw;
@@ -20,23 +17,26 @@ div#mapa1 {
     border-radius: 40px
 }
 
+
+div#rows{
+    display:flex;
+}
+
 svg > defs > clipPath > polygon {
     stroke: blue;
     stroke-width: 3;
 
 }
 div > div * {
-/*    height: 5vh;
-    width: 3vw;*/
-    height: 40vh;
-    width: 24vw;
-    border: 1px solid crimson;
+    height: 6vh;
+    width: 3.6vw;
 }
+
 
 image {
     border: 3px solid;
-    height: 10vh;
-    width: 6vw;
+    height: 6vh;
+    width: 3.6vw;
 }
 
 polygon#obramowka {
@@ -44,6 +44,10 @@ polygon#obramowka {
     stroke: black;
     stroke-width: 2px;
 }
+
+
+
+
 
 div#5 {
     position: absolute;
