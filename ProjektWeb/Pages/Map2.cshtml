@@ -1,21 +1,21 @@
 ﻿@page
-@model Map1Model
+@model Map2Model
 @{
-    ViewData["Title"] = "Gra - Poziom 1";
+    ViewData["Title"] = "Gra Poziom 2";
 }
 
-  
+
 <div id="mapa1">
-    
-    @for(int i = Model._mapa.SizeY - 1; i>=0; i--)
+
+    @for (int i = Model._mapa.SizeY - 1; i >= 0; i--)
     {
-        double mnoz = i*17-170;
+        double mnoz = i * 17 - 170;
         var actualmnoz = mnoz.ToString("0.0", System.Globalization.CultureInfo.InvariantCulture);
 
-        @if (i != Model._mapa.SizeY - 1 && i%2 == 0)
+        @if (i != Model._mapa.SizeY - 1 && i % 2 == 0)
         {
             <div id="rows" style="position:relative; top:@(actualmnoz)px;">
-                @for(int j = 0; j < Model._mapa.SizeX; j++)
+                @for (int j = 0; j < Model._mapa.SizeX; j++)
                 {
                     <div id="@j">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
@@ -25,7 +25,7 @@
                                 </clipPath>
                             </defs>
 
-                            <polygon points="49.9,1.4   100,28.375  100,73.15   49.9,100.125  0,73.15  0,28.375" id="obramowka"/>
+                            <polygon points="49.9,1.4   100,28.375  100,73.15   49.9,100.125  0,73.15  0,28.375" id="obramowka" />
 
                             @*<image href="/Images/rabit.png" width="2vw" height="4vh" x="0" y="0" clip-path="url(#clipPolygon3)" />*@
                         </svg>
@@ -59,4 +59,3 @@
     }
 
 </div>
-

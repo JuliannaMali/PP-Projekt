@@ -12,7 +12,7 @@ public static class App
 
     static App()
     {
-        _finiteMap = new FiniteMap(17, 12);
-        _infiniteMap = new InfiniteMap(17, 12);
+        _finiteMap = new FiniteMap(17, 14);
+        _infiniteMap = new InfiniteMap(17, 14);
     }
 }

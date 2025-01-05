@@ -10,6 +10,7 @@ div#mapa1 {
     align-items: center;
     margin: auto;
     width:59vw;
+    height:87vh;
 
     background-color: rgba(0,0,0,0.2);
     padding: 10px 100px 10px 40px;
@@ -22,14 +23,15 @@ div#rows{
     display:flex;
 }
 
+
 svg > defs > clipPath > polygon {
     stroke: blue;
     stroke-width: 3;
 
 }
 div > div * {
-    height: 6vh;
-    width: 3.6vw;
+    height: 7vh;
+    width: auto;
 }
 
 
@@ -43,26 +45,6 @@ polygon#obramowka {
     fill: lightblue;
     stroke: black;
     stroke-width: 2px;
-}
-
-
-
-
-
-div#5 {
-    position: absolute;
-
-}
-div#4 {
-    position: absolute;
-    top: calc(147.9px * 2 - 4px)
-}
-
-
-div#3 {
-    position: absolute;
-    left: 110.5px;
-    top: 147.9px
 }
 
 

@@ -4,18 +4,19 @@
     <meta charset="utf-8" />
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Site Name</title>
+    <title>Średnia Gra - @ViewData["Title"]</title>
     <link rel="stylesheet" href="~/css/site.css"
           asp-append-version="true" />
     <script src="~/js/site.js"></script>
 </head>
 <body>
     <header>
-        <b>Site Name</b>
+        <b id="site-name">Projekt</b>
         <nav>
-            <a asp-area="" asp-page="/Index">Home</a>
-            <a asp-area="" asp-page="/Privacy">Privacy</a>
-            <a asp-area="" asp-page="/Map1">Map1</a>
+            <a asp-area="" asp-page="/Index">Strona Główna</a>
+            <a asp-area="" asp-page="/Zasady">Zasady</a>
+            <a asp-area="" asp-page="/Map1">Gra - Poziom 1</a>
+            <a asp-area="" asp-page="/Map2">Gra - Poziom 2</a>
         </nav>
     </header>
     <main>
