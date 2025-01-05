@@ -5,208 +5,60 @@ namespace Projekt.Ruch;
 
 public static class Fight
 {
-    public static void FightStart(Hero hero, Character enemy)
+    public static object[] FightStart(Hero hero, Character enemy)
     {
+        object[] tablica = new object[2]; 
+
         double hero_hp = hero.HP;
         double enemy_hp = enemy.HP;
-        bool first_hit = true;
+
+        double enemy_stat;
+
+        bool hero_is_first;
+        bool unik;
 
         if(enemy is Knight)
         {
+            enemy_stat = (enemy as Knight).Defense;
+            unik = false;
+
             if(hero.isKnight)
             //Knight vs Knight
             {
-                while (true)
-                {
-                    Status(hero_hp, hero.HP, enemy_hp, enemy.HP);
-
-                    double rand = autoRand.NextDouble();
-                    double hero_dmg = Math.Round(((hero.Level * 1.5) + (5 + hero.Level * rand) * (1 + hero.Stat)), 2);
-
-                    rand = autoRand.NextDouble();
-                    double enemy_dmg = Math.Round(((enemy.Level * 1.5) + (5 + enemy.Level * rand) * (1 + (enemy as Knight).Defense)), 2);
-
-                    if (hero.Stat <= (enemy as Knight)?.Defense && first_hit)
-                    {
-                        double rand2 = autoRand.NextDouble();
-                        double hero_dmg2 = Math.Round(((hero.Level * 1.5) + (5 + hero.Level * rand2) * (1 + hero.Stat)), 2);
-
-                        enemy_hp -= hero_dmg2 * (1 - (enemy as Knight).Defense);
-                        Console.WriteLine($"Zadajesz przeciwnikowi {hero_dmg2} obrażeń!");
-                        
-                        if (enemy_hp <= 0)
-                        {
-                            hero.fight_won(0);
-                            Console.WriteLine("Wygrałeś!");
-                            break;
-                        }
-
-                        first_hit = false;
-                    }
-                    Thread.Sleep(1500);
-                    hero_hp -= enemy_dmg * (1 - hero.Stat);
-                    Console.WriteLine($"{enemy.Info()} zadaje Ci {enemy_dmg} obrażeń!");
-
-                    if (hero_hp <= 0)
-                    {
-                        Console.WriteLine("Przegrałeś!");
-                    }
-                    Thread.Sleep(1500);
-                    enemy_hp -= hero_dmg * (1 - (enemy as Knight).Defense);
-                    Console.WriteLine($"Zadajesz przeciwnikowi {hero_dmg} obrażeń!");
-
-                    if (enemy_hp <= 0)
-                    {
-                        hero.fight_won(0);
-                        Console.WriteLine("Wygrałeś!");
-                        break;
-                    }
-                    Thread.Sleep(1500);
-                }
+                if (hero.Stat <= enemy_stat)
+                    hero_is_first = true;
+                else
+                    hero_is_first = false;
             }
             else
             //Scout vs Knight
             {
-                while (true)
-                {
-                    double rand = autoRand.NextDouble();
-                    double hero_dmg = Math.Round(((hero.Level * 1.5) + (5 + hero.Level * rand) * (1 + hero.Stat)), 2);
-
-                    rand = autoRand.NextDouble();
-                    double enemy_dmg = Math.Round(((enemy.Level * 1.5) + (5 + enemy.Level * rand) * (1 + (enemy as Knight).Defense)), 2);
-
-
-                    enemy_hp -= hero_dmg * (1 - (enemy as Knight).Defense);
-                    Console.WriteLine($"Zadajesz przeciwnikowi {hero_dmg} obrażeń!");
-
-                        if (enemy_hp <= 0)
-                        {
-                            hero.fight_won(0);
-                            break;
-                        }
-
-                    if (Dodge(hero.Stat))
-                    {
-                        Console.WriteLine("Unikasz ciosu przeciwnika!");
-                    }
-                    else
-                    {
-                        hero_hp -= enemy_dmg;
-                        Console.WriteLine($"{enemy.Info()} zadaje Ci {enemy_dmg} obrażeń!");
-                    }
-
-                        if (hero_hp <= 0)
-                        {
-                            //game over
-                        }
-                }
+                hero_is_first = true;
             }
         }
         else 
         {
+            enemy_stat = (enemy as Scout).Agility;
+            unik = true;
+
             if (hero.isKnight)
             //Knight vs Scout
             {
-                while (true)
-                {
-                    double rand = autoRand.NextDouble();
-                    double hero_dmg = Math.Round(((hero.Level * 1.5) + (5 + hero.Level * rand) * (1 + hero.Stat)), 2);
-
-                    rand = autoRand.NextDouble();
-                    double enemy_dmg = Math.Round(((enemy.Level * 1.5) + (5 + enemy.Level * rand) * (1 + (enemy as Scout).Agility)), 2);
-
-
-                    hero_hp -= enemy_dmg * (1 - hero.Stat);
-                    Console.WriteLine($"{enemy.Info()} zadaje Ci {enemy_dmg} obrażeń!");
-
-                    if (hero_hp <= 0)
-                    {
-                        //game over
-                    }
-
-                    if (Dodge((enemy as Scout).Agility))
-                    {
-                        Console.WriteLine("Przeciwnik unika Twojego ciosu!");
-                    }
-                    else
-                    {
-                        enemy_hp -= hero_dmg;
-                        Console.WriteLine($"Zadajesz przeciwnikowi {hero_dmg} obrażeń!");
-
-
-                    }
-
-                    if (enemy_hp <= 0)
-                    {
-                        hero.fight_won(0);
-                        break;
-                    }
-                }
+                hero_is_first = false;
             }
             else
             //Scout vs Scout
             {
-                while (true)
-                {
-                    double rand = autoRand.NextDouble();
-                    double hero_dmg = Math.Round(((hero.Level * 1.5) + (5 + hero.Level * rand) * (1 + hero.Stat)), 2);
-
-                    rand = autoRand.NextDouble();
-                    double enemy_dmg = Math.Round(((enemy.Level * 1.5) + (5 + enemy.Level * rand) * (1 + (enemy as Scout).Agility)), 2);
-
-                    if (hero.Stat >= (enemy as Scout).Agility && first_hit)
-                    {
-                        if (Dodge((enemy as Scout).Agility))
-                        {
-                            Console.WriteLine("Przeciwnik unika Twojego ciosu!");
-                        }
-                        else
-                        {
-                            enemy_hp -= hero_dmg;
-                            Console.WriteLine($"Zadajesz przeciwnikowi {hero_dmg} obrażeń!");
-
-                            if (enemy_hp <= 0)
-                            {
-                                hero.fight_won(0);
-                                break;
-                            }
-                        }
-                        first_hit = false;
-                    }
-
-                    if (Dodge(hero.Stat))
-                    {
-                        Console.WriteLine("Unikasz ciosu przeciwnika!");
-                    }
-                    else
-                    {
-                        hero_hp -= enemy_dmg;
-                        Console.WriteLine($"{enemy.Info()} zadaje Ci {enemy_dmg} obrażeń!");
-                    }
-
-                    if (hero_hp <= 0)
-                    {
-                        //game over
-                    }
-
-                    if (Dodge((enemy as Scout).Agility))
-                    {
-                        Console.WriteLine("Przeciwnik unika Twojego ciosu!");
-                    }
-                    else
-                    {
-                        enemy_hp -= hero_dmg;
-                        Console.WriteLine($"Zadajesz przeciwnikowi {hero_dmg} obrażeń!");
-
-                        if (enemy_hp <= 0)
-                        {
-                            hero.fight_won(0);
-                            break;
-                        }
-                    }
-                }
+                if (hero.Stat >= enemy_stat)
+                    hero_is_first = true;
+                else
+                    hero_is_first = false;
             }
         }
+        tablica[0] = new WhoIsFighting(hero, enemy);
+        tablica[1] = DamageDealt(hero_is_first, hero.Level, hero.Stat, false, enemy.Level, enemy_stat, unik, enemy.Info());
+
+        return tablica;
     }
     public static bool Dodge(double chance)
     {
@@ -233,16 +85,23 @@ public static class Fight
         Thread.Sleep(1500);
     }
 
-    public static Dictionary<int, TurnCourse> DamageDealt(bool hero_moves_first, int h_lvl, int h_stat, bool h_dodge, double h_hp, int e_lvl, int e_stat, bool e_dodge, double e_hp)
+    public static Dictionary<int, TurnCourse> DamageDealt(
+        bool hero_moves_first, 
+        int h_lvl, double h_stat, bool h_dodge, 
+        int e_lvl, double e_stat, bool e_dodge, string who)
     {
         Random autoRand = new Random();
         int counter = 0;
 
-        Dictionary<int, TurnCourse> dict = new();
+        double h_hp = h_lvl * 50;
+        double e_hp = e_lvl * 50;
 
+        Dictionary<int, TurnCourse> dict = new();
+        dict[counter] = new TurnCourse(-1, -1, h_hp, e_hp);
 
         while(true)
         {
+            //Status(h_hp, h_lvl * 50, e_hp, e_lvl * 50);
             counter++;
 
             double rand = autoRand.NextDouble();
@@ -251,48 +110,82 @@ public static class Fight
             rand = autoRand.NextDouble();
             double enemy_dmg = Math.Round(((e_lvl * 1.5) + (5 + e_lvl * rand) * (1 + e_stat)), 2);
 
+            
+            //Uderzasz przeciwnika
             if(hero_moves_first)
             {
-                double rand2 = autoRand.NextDouble();
-                double hero_dmg2 = Math.Round(((h_lvl * 1.5) + (5 + h_lvl * rand2) * (1 + h_stat)), 2);
-
                 if(e_dodge)
                 {
+                    // Hero vs Scout
                     if(Dodge(e_stat))
                     {
-                        Console.WriteLine("Przeciwnik unika Twojego ciosu!");
-                        hero_dmg2 = 0;
+                        //Console.WriteLine($"{who} unika Twojego ciosu!");
+                        hero_dmg = 0;
                     }
                     else
                     {
                         e_hp -= hero_dmg;
-                        Console.WriteLine($"Zadajesz przeciwnikowi {hero_dmg2} obrażeń!");
+                        //Console.WriteLine($"Zadajesz przeciwnikowi {hero_dmg} obrażeń!");
                     }
                 }
                 else
                 {
-                    hero_dmg *= (1 - e_stat);
-                    Console.WriteLine($"Zadajesz przeciwnikowi {hero_dmg2} obrażeń!");
+                    // Hero vs Knight
+                    hero_dmg = Math.Round(hero_dmg * (1 - e_stat), 2);
+                    e_hp -= hero_dmg;
+                    //Console.WriteLine($"Zadajesz przeciwnikowi {hero_dmg} obrażeń!");
                 }
             }
             else
             {
-                hero_dmg = -1;
+                hero_dmg = -10;
             }
 
             hero_moves_first = true;
         
+
+            //Przeciwnik Cię uderza
             if(h_dodge)
             {
-
+                //Scout vs Enemy
+                if (Dodge(h_stat))
+                {
+                    //Console.WriteLine("Unikasz ciosu przeciwnika!");
+                    enemy_dmg = 0;
+                }
+                else
+                {
+                    h_hp -= enemy_dmg;
+                    //Console.WriteLine($"{who} zadaje Ci {enemy_dmg} obrażeń!");
+                }
             }
             else
             {
-
+                //Knight vs Enemy
+                enemy_dmg = Math.Round(enemy_dmg * (1 - h_stat), 2);
+                h_hp -= enemy_dmg;
+                //Console.WriteLine($"{who} zadaje Ci {enemy_dmg} obrażeń!");
             }
 
-            dict[counter] = new TurnCourse(hero_dmg, enemy_dmg);
-        }
+            dict[counter] = new TurnCourse(hero_dmg, enemy_dmg, dict[counter-1].curr_hero_hp - enemy_dmg, dict[counter-1].curr_enem_hp - (hero_dmg < 0 ? 0 : hero_dmg));
 
+            if (dict[counter].curr_hero_hp <= 0 || dict[counter].curr_enem_hp <= 0)
+                break;
+        }
+        return dict;
+    }
+
+    public struct WhoIsFighting
+    {
+        public readonly string hero_name;
+        public readonly List<object> hero_stats;
+
+        public readonly string enemy_name;
+        public readonly List<object> enemy_stats;
+
+        public WhoIsFighting(Hero hero, Character enemy) =>
+            (hero_name, hero_stats, enemy_name, enemy_stats) =
+            (hero.Info(), new List<object> { hero.Level, hero.Stat },
+            enemy.Info(), new List<object> { enemy.Level, enemy is Knight ? (enemy as Knight).Defense : (enemy as Scout).Agility });
     }
 }

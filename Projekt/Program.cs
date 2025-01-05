@@ -16,71 +16,28 @@ public class Program
         bohater.level_up(400);
 
         Knight knight = new(1, 0.01);
-        Scout scout = new(1, 0.33);
+        Scout scout = new(10, 0.5);
 
-        Fight.FightStart(bohater, knight);
-        //Fight.FightStart(bohater, scout);
+        var x = Fight.FightStart(bohater, knight)[1];
 
+        //foreach(KeyValuePair<int, TurnCourse> element in (Dictionary<int, TurnCourse>)x)
+        //{
+        //    Console.WriteLine($"Tura: {element.Key}");
+        //    Console.WriteLine($"Obrażenia bohatera: {element.Value.hero_dmg}");
+        //    Console.WriteLine($"Obrażenia przeciwnika: {element.Value.enem_dmg}");
+        //    Console.WriteLine($"Życie bohatera:{element.Value.curr_hero_hp}");
+        //    Console.WriteLine($"Życie przeciwnika:{element.Value.curr_enem_hp}\n");
+        //}
 
+        x = Fight.FightStart(bohater, scout)[1];
 
-        //Scout vs Scout
+        foreach (KeyValuePair<int, TurnCourse> element in (Dictionary<int, TurnCourse>)x)
         {
-            while (true)
-            {
-
-                if (hero.Stat >= (enemy as Scout).Agility && first_hit)
-                {
-                    if (Dodge((enemy as Scout).Agility))
-                    {
-                        Console.WriteLine("Przeciwnik unika Twojego ciosu!");
-                    }
-                    else
-                    {
-                        enemy_hp -= hero_dmg;
-                        Console.WriteLine($"Zadajesz przeciwnikowi {hero_dmg} obrażeń!");
-
-                        if (enemy_hp <= 0)
-                        {
-                            hero.fight_won(0);
-                            break;
-                        }
-                    }
-                    first_hit = false;
-                }
-
-                if (Dodge(hero.Stat))
-                {
-                    Console.WriteLine("Unikasz ciosu przeciwnika!");
-                }
-                else
-                {
-                    hero_hp -= enemy_dmg;
-                    Console.WriteLine($"{enemy.Info()} zadaje Ci {enemy_dmg} obrażeń!");
-                }
-
-                if (hero_hp <= 0)
-                {
-                    //game over
-                }
-
-                if (Dodge((enemy as Scout).Agility))
-                {
-                    Console.WriteLine("Przeciwnik unika Twojego ciosu!");
-                }
-                else
-                {
-                    enemy_hp -= hero_dmg;
-                    Console.WriteLine($"Zadajesz przeciwnikowi {hero_dmg} obrażeń!");
-
-                    if (enemy_hp <= 0)
-                    {
-                        hero.fight_won(0);
-                        break;
-                    }
-                }
-            }
+            Console.WriteLine($"Tura: {element.Key}");
+            Console.WriteLine($"Obrażenia bohatera: {element.Value.hero_dmg}");
+            Console.WriteLine($"Obrażenia przeciwnika: {element.Value.enem_dmg}");
+            Console.WriteLine($"Życie bohatera:{element.Value.curr_hero_hp}");
+            Console.WriteLine($"Życie przeciwnika:{element.Value.curr_enem_hp}");
         }
     }
 }
-
-
