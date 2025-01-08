@@ -1,7 +1,7 @@
 ﻿namespace Projekt.Gra;
 using Projekt.Mapy;
 using Projekt.Postaci;
-
+using Projekt.Generators;
 public class Game
 {
     //Attrbs
@@ -20,6 +20,19 @@ public class Game
         Map = mapa;
         Mappables = mappables;
         Positions = positions;        
+
+        if(mappables.Count != positions.Count)
+        {
+            Console.WriteLine("Liczba pozycji i potworów jest różna!");
+            Environment.Exit(0);
+        }
+        else
+        {
+            for(int i = 0; i < counter + 1; i++)
+            {
+                Map.Add(Mappables[i], Positions[i]);
+            }
+        }
     }
 
     public void Turn()
@@ -50,49 +63,12 @@ public class Game
             {
                 for(int i = 1; i <= counter; i++)
                 {
-                    Direction dir = MoveGenerator();
+                    Direction dir = MoveGenerator.Generate();
                     Mappables[i].Go(dir);
                     Console.WriteLine($"{Mappables[i]} goes {dir}");
                 }
                 HeroIsMoving = true;
             }
-        }
-    }
-    protected static Direction MoveGenerator()
-    {
-        Random randommove = new();
-        int losowaliczba = randommove.Next(0, 6);
-
-        switch(losowaliczba)
-        {
-            case 0:
-                {
-                    return Direction.Right;
-                }
-            case 1:
-                {
-                    return Direction.Left;
-                }
-            case 2:
-                {
-                    return Direction.TopLeft;
-                }
-            case 3:
-                {
-                    return Direction.TopRight;
-                }
-            case 4:
-                {
-                    return Direction.DownLeft;
-                }
-            case 5:
-                {
-                    return Direction.DownRight;
-                }
-            default:
-                {
-                    return Direction.Right;
-                }
         }
     }
 }

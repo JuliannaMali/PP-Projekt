@@ -2,6 +2,7 @@
 using Projekt.Mapy;
 using Projekt.Postaci;
 using Projekt.Ruch;
+using Projekt.Generators;
 using System;
 
 namespace Projekt;
@@ -23,23 +24,14 @@ public class Program
             new Scout(5, 0.1)
         };
 
-        List<Point> pos = new List<Point>
-        {
-            new Point(0, 0, null, null),
-            new Point(1, 1, null, null),
-            new Point(2, 2, null, null),
-            new Point(3, 3, null, null),
-            new Point(4, 4, null, null),
-            new Point(5, 5, null, null)
-        };
+        List<Point> pos = PositionsGenerator.Generate(mapp.Count);
 
 
         Game newgame = new(mapa1, mapp, pos);
 
         for(int i = 0; i < 6; i++)
         {
-            Console.WriteLine(i);
-            newgame.Turn();
+            Console.WriteLine($"{mapp[i]} - {pos[i]}");
         }
 
         Environment.Exit(0);

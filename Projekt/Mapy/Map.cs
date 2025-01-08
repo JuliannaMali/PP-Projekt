@@ -3,7 +3,7 @@ public abstract class Map
 {
     //Attributes
 
-    protected Dictionary<Point, List<IMappable>>? _fields = new();
+    protected Dictionary<Point, IMappable> _fields = new();
     public int SizeX { get; set; }
     public int SizeY { get; set; }
     protected Func<Map, Point, Direction, Point>? FNext { get; set; }
@@ -22,47 +22,41 @@ public abstract class Map
 
     public void Add(IMappable mappable, Point p)
     {
-        try
-        {
-            _fields?[p].Add(mappable);
-        }
-        catch (KeyNotFoundException)
-        {
-            _fields[p] = new List<IMappable>();
-            _fields[p].Add(mappable);
-        }
+        _fields[p] = mappable;
         mappable.InitMapAndPosition(this, p);
     }
-    public void Remove(IMappable mappable, Point p)
+
+    public void Remove(Point p)
     {
-        _fields?[p].Remove(mappable);
-        mappable.InitMapAndPosition(this, default);
+        _fields.Remove(p);
     }
+
     public void Move(IMappable mappable, Point source, Point dest)
     {
-        Remove(mappable, source);
+        Remove(source);
         Add(mappable, dest);
     }
-    public List<IMappable>? At(Point p)
+
+    public IMappable At(Point p)
     {
         try
         {
-            return _fields?[p];
+            return _fields[p];
         }
         catch (KeyNotFoundException)
         {
-            return new List<IMappable>();
+            return default!;
         }
     }
-    public List<IMappable>? At(int? x, int? y, int? v, int? w)
+    public IMappable At(int? x, int? y, int? v, int? w)
     {
         try
         {
-            return _fields?[new Point(x, y, v, w)];
+            return _fields[new Point(x, y, v, w)];
         }
         catch (KeyNotFoundException)
         {
-            return new List<IMappable>();
+            return default!;
         }
     }
     public virtual bool Exist(Point p)

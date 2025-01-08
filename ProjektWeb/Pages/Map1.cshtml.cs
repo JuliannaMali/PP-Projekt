@@ -9,7 +9,7 @@ namespace ProjektWeb.Pages
         public required Projekt.Mapy.FiniteMap _mapa { get; set; }
         public void OnGet()
         {
-            _mapa = App._finiteMap;
+           // _mapa = App._finiteMap;
         }
     }
 }

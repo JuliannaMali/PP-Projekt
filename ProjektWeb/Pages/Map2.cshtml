@@ -1,75 +1,71 @@
 ﻿@page
-@model Map1Model
+@model Map2Model
 @{
     ViewData["Title"] = "Gra - Poziom 2";
 }
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Średnia Gra - @ViewData["Title"]</title>
-    <link rel="stylesheet" href="~/css/MapView.css"
-          asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/MapView.css" asp-append-version="true" />
 </head>
 
 <div id="mapa1">
 
-    @for (int i = Model._mapa.SizeY - 1; i >= 0; i--)
+    @for (int y = Model.Game2.Map.SizeY - 1; y >= 0; y--)
     {
-        double mnoz = i * 17 - 170;
+        double mnoz = y * 17 - 198;
         var actualmnoz = mnoz.ToString("0.0", System.Globalization.CultureInfo.InvariantCulture);
 
-        @if (i != Model._mapa.SizeY - 1 && i % 2 == 0)
-        {
-            <div id="rows" style="position:relative; top:@(actualmnoz)px;">
-                @for (int j = 0; j < Model._mapa.SizeX; j++)
-                {
-                    <div id="@j">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-                            <defs>
-                                <clipPath id="clipPolygon3">
-                                    <polygon points="49.9,4.4     100,28.375   100,73.15  49.9,97.125  0,73.15  0,28.375" />
-                                </clipPath>
-                            </defs>
+        <div id="rows" style="position:relative; top:@(actualmnoz)px;">
+            @for (int x = 0; x < Model.Game2.Map.SizeX; x++)
+            {
+                <div id="@x">
 
-                            <polygon points="49.9,1.4   100,28.375  100,73.15   49.9,100.125  0,73.15  0,28.375" id="obramowka" />
+                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"> 
+                         <defs> 
+                             <clipPath id="clipPolygon3"> 
+                                 <polygon points="49.9,4.4     100,28.375   100,73.15  49.9,97.125  0,73.15  0,28.375" /> 
+                             </clipPath> 
+                         </defs> 
 
-                            @*
-                <image href="/Images/hexagon-long-diagonals.png" width="auto" height="10vh" x="7%" y="3%" clip-path="url(#clipPolygon3)" />
+                         <polygon points="49.9,1.4   100,28.375  100,73.15   49.9,100.125  0,73.15  0,28.375" id="obramowka" /> 
 
-                *@
-                        </svg>
+                         @{ 
+                             Projekt.Point punkt;
 
-                    </div>
-                }
-            </div>
-        }
-        else
-        {
-            <div id="rows" style="position: relative; left:1.75vw; top:calc(@(actualmnoz)px)">
-                @for (int j = 0; j < Model._mapa.SizeX; j++)
-                {
-                    <div id="@j">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-                            <defs>
-                                <clipPath id="clipPolygon3">
-                                    <polygon points="49.9,4.4     100,28.375   100,73.15  49.9,97.125  0,73.15  0,28.375" id="hex" fill="blue" />
-                                </clipPath>
-                            </defs>
+                            punkt = y % 2 == 0 ? new Projekt.Point(x, y / 2, null, null) : new Projekt.Point(null, null, x, y / 2);
 
-                            <polygon points="49.9,1.4   100,28.375  100,73.15   49.9,100.125  0,73.15  0,28.375" id="obramowka" />
+                             var element = @Model.Game2.Map.At(punkt); 
 
-                            @*
+                             switch(element as Projekt.Postaci.Character) 
+                             { 
+                                 case Projekt.Postaci.Hero: 
+                                     { 
+                                         <image href="/Images/rabit.png" width="auto" height="10vh" x="22%" y="17%" clip-path="url(#clipPolygon3)"/> 
+                                         break; 
+                                     } 
+                                 case Projekt.Postaci.Scout: 
+                                     {
+                                        <image href="/Images/hexagon-long-diagonals.png" width="auto" height="10vh" x="22%" y="17%" clip-path="url(#clipPolygon3)" />
+                                        break; 
+                                     } 
+                                 case Projekt.Postaci.Knight: 
+                                     {
+                                        <image href="/Images/rabit.png" width="auto" height="10vh" x="22%" y="17%" clip-path="url(#clipPolygon3)" />
+                                        break; 
+                                     } 
+                                case null:
+                                     { 
+                                         break; 
+                                     } 
+                            }
+                        }
 
-                <image href="/Images/rabit.png" width="auto" height="10vh" x="7%" y="3%" clip-path="url(#clipPolygon3)" />
-
-                *@
-                        </svg>
-
-                    </div>
-                }
-            </div>
-        }
+                    </svg>
+                </div>
+            }
+        </div>
     }
 
 </div>
