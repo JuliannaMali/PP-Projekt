@@ -1,0 +1,60 @@
+﻿div#container{
+    display: flex;
+    border: 2px solid red;
+}
+
+div#controller{
+    border:2px solid black;
+    border-radius: 30px;
+    width: 20vw;
+    align-content: center;
+    text-align: center;
+    align-items: center;
+
+    padding: 20px
+}
+
+div#top{
+    display: flex;
+    height: 10vh;
+    border: 1px solid lightblue;
+
+}
+
+div#middle{
+    height: 10vh;
+
+}
+
+div#bottom{
+    display: flex;
+    align-items:center;
+}
+
+div#controller > div > svg{
+    height: 10vh;
+}
+
+form{
+    width: 100%;
+    height:100%;
+}
+
+.trianglebutton{
+    background-color: black;
+    height: 7vh;
+    width: 5vw; 
+    align-items: center;
+    justify-content: center;
+    clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+    cursor: pointer;
+    position: relative;
+}
+
+.trianglebutton#even{
+    transform: rotate(330deg)
+}
+
+.trianglebutton#odd {
+    transform: rotate(30deg)
+}

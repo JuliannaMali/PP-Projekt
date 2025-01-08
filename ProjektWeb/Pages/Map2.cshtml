@@ -1,9 +1,16 @@
 ﻿@page
-@model Map2Model
+@model Map1Model
 @{
-    ViewData["Title"] = "Gra Poziom 2";
+    ViewData["Title"] = "Gra - Poziom 2";
 }
-
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0" />
+    <title>Średnia Gra - @ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/css/MapView.css"
+          asp-append-version="true" />
+</head>
 
 <div id="mapa1">
 
@@ -21,13 +28,16 @@
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
                             <defs>
                                 <clipPath id="clipPolygon3">
-                                    <polygon points="49.9,1.4     100,28.375   100,73.15  49.9,100.125  0,73.15  0,28.375" />
+                                    <polygon points="49.9,4.4     100,28.375   100,73.15  49.9,97.125  0,73.15  0,28.375" />
                                 </clipPath>
                             </defs>
 
                             <polygon points="49.9,1.4   100,28.375  100,73.15   49.9,100.125  0,73.15  0,28.375" id="obramowka" />
 
-                            @*<image href="/Images/rabit.png" width="2vw" height="4vh" x="0" y="0" clip-path="url(#clipPolygon3)" />*@
+                            @*
+                <image href="/Images/hexagon-long-diagonals.png" width="auto" height="10vh" x="7%" y="3%" clip-path="url(#clipPolygon3)" />
+
+                *@
                         </svg>
 
                     </div>
@@ -43,13 +53,17 @@
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
                             <defs>
                                 <clipPath id="clipPolygon3">
-                                    <polygon points="49.9,1.4     100,28.375   100,73.15  49.9,100.125  0,73.15  0,28.375" />
+                                    <polygon points="49.9,4.4     100,28.375   100,73.15  49.9,97.125  0,73.15  0,28.375" id="hex" fill="blue" />
                                 </clipPath>
                             </defs>
 
                             <polygon points="49.9,1.4   100,28.375  100,73.15   49.9,100.125  0,73.15  0,28.375" id="obramowka" />
 
-                            @*<image href="/Images/rabit.png" width="2vw" height="4vh" x="0" y="0" clip-path="url(#clipPolygon3)" />*@
+                            @*
+
+                <image href="/Images/rabit.png" width="auto" height="10vh" x="7%" y="3%" clip-path="url(#clipPolygon3)" />
+
+                *@
                         </svg>
 
                     </div>
@@ -59,3 +73,4 @@
     }
 
 </div>
+

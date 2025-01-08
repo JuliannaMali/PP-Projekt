@@ -1,17 +1,11 @@
-body {
-    background-color: gray;
-}
-
-
-/*div#mapa1 {*/
-/*    display: flex;*/
-/*    grid-template-columns: max-content repeat(16, max-content);
+﻿div#mapa1 {
+    /*    display: flex;*/
+    /*    grid-template-columns: max-content repeat(16, max-content);
     grid-template-rows: repeat(12, 1fr) max-content;*/
-    /*align-items: center;
+    align-items: center;
     margin: auto;
-    width:59vw;
-    height:87vh;
-
+    width: 59vw;
+    height: 87vh;
     background-color: rgba(0,0,0,0.2);
     padding: 10px 100px 10px 40px;
     border: 2px solid black;
@@ -19,27 +13,27 @@ body {
 }
 
 
-div#rows{
-    display:flex;
+div#rows {
+    display: flex;
 }
 
 
 svg > defs > clipPath > polygon {
     stroke: blue;
     stroke-width: 3;
-
 }
-div > div * {
+
+div#mapa1 > div * {
     height: 7vh;
     width: auto;
 }
 
 
 svg > image {
-    height:10vh;
+    height: 10vh;
 }
 
-polygon#hex{
+polygon#hex {
     fill: blue;
 }
 
@@ -47,6 +41,4 @@ polygon#obramowka {
     fill: lightblue;
     stroke: black;
     stroke-width: 3px;
-}*/
-
-
+}
