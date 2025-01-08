@@ -7,7 +7,7 @@ public class Hero : Character, IMappable
     //Attrs
     private string name = "Bezimienny";
 
-    private int exp_to_lvl_up = 10;
+    private int exp_to_lvl_up = 50;
     private int exp_owned = 0;
 
     private double defense = 0;
@@ -52,26 +52,25 @@ public class Hero : Character, IMappable
         }
     }
 
-    public void fight_won(int exp_gained)
+    public void Fight_won(int exp_gained)
     {
-        if(exp_owned + exp_gained >= exp_to_lvl_up)
-        //postać levelowała
+        exp_owned += exp_gained;
+        do
         {
-            level_up(exp_gained);
-        }
-        else
-        //postać nie levelowała
-        {
-            exp_owned += exp_gained;
-        }
+            if (exp_owned >= exp_to_lvl_up)
+            //postać levelowała
+            {
+                Level_up();
+            }
+        } while (exp_owned >= exp_to_lvl_up);
     }
 
-    public void level_up(int exp_gained)
+    public void Level_up()
     {
-        lvl++;
+        lvl += lvl < 10 ? 1 : 0;
         hp += 50;
-        exp_to_lvl_up += 10;
-        exp_owned += exp_gained - exp_to_lvl_up;
+        exp_owned -= exp_to_lvl_up;
+        exp_to_lvl_up += 50;
 
         if (isKnight)
         {
