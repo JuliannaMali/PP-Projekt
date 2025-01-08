@@ -28,6 +28,9 @@ div#mapa1 > div * {
     width: auto;
 }
 
+div#rows:nth-child(even) {
+    left: 1.75vw;
+}
 
 svg > image {
     height: 10vh;
