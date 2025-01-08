@@ -1,5 +1,6 @@
 ﻿using Projekt.Postaci;
 using System;
+using System.Diagnostics.Metrics;
 
 namespace Projekt.Ruch;
 
@@ -9,18 +10,16 @@ public static class Fight
     {
         object[] tablica = new object[2]; 
 
-        double hero_hp = hero.HP;
-        double enemy_hp = enemy.HP;
-
         double enemy_stat;
 
         bool hero_is_first;
-        bool unik;
+        bool unik_e;
+        bool unik_h;
 
         if(enemy is Knight)
         {
             enemy_stat = (enemy as Knight).Defense;
-            unik = false;
+            unik_e = false;
 
             if(hero.isKnight)
             //Knight vs Knight
@@ -29,22 +28,25 @@ public static class Fight
                     hero_is_first = true;
                 else
                     hero_is_first = false;
+                unik_h = false;
             }
             else
             //Scout vs Knight
             {
                 hero_is_first = true;
+                unik_h = true;
             }
         }
         else 
         {
             enemy_stat = (enemy as Scout).Agility;
-            unik = true;
+            unik_e = true;
 
             if (hero.isKnight)
             //Knight vs Scout
             {
                 hero_is_first = false;
+                unik_h = false;
             }
             else
             //Scout vs Scout
@@ -53,10 +55,11 @@ public static class Fight
                     hero_is_first = true;
                 else
                     hero_is_first = false;
+                unik_h = true;
             }
         }
         tablica[0] = new WhoIsFighting(hero, enemy);
-        tablica[1] = DamageDealt(hero_is_first, hero.Level, hero.Stat, false, enemy.Level, enemy_stat, unik, enemy.Info());
+        tablica[1] = DamageDealt(hero_is_first, hero.Level, hero.Stat, unik_h, enemy.Level, enemy_stat, unik_e, enemy.Info());
 
         return tablica;
     }
