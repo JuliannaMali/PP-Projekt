@@ -10,4 +10,8 @@
     <ProjectReference Include="..\Projekt\Projekt.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\Fonts\" />
+  </ItemGroup>
+
 </Project>

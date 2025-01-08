@@ -1,12 +1,13 @@
-﻿div#mapa1 {
-    /*    display: flex;*/
-    /*    grid-template-columns: max-content repeat(16, max-content);
-    grid-template-rows: repeat(12, 1fr) max-content;*/
-    align-items: center;
-    margin: auto;
+﻿:root{
+    --polygon-color: #BE8D67;
+}
+
+
+div#mapa1 {
+    margin-left: 5%;
     width: 59vw;
-    height: 87vh;
-    background-color: rgba(0,0,0,0.2);
+    height: 80vh;
+    background-color: rgba(126, 85, 53, 0.2);
     padding: 10px 100px 10px 40px;
     border: 2px solid black;
     border-radius: 40px
@@ -26,6 +27,7 @@ svg > defs > clipPath > polygon {
 div#mapa1 > div * {
     height: 7vh;
     width: auto;
+
 }
 
 div#rows:nth-child(even) {
@@ -41,7 +43,7 @@ polygon#hex {
 }
 
 polygon#obramowka {
-    fill: lightblue;
+    fill: var(--polygon-color);
     stroke: black;
     stroke-width: 3px;
 }
