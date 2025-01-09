@@ -25,7 +25,7 @@ public class Hero : Character, IMappable
         }
         else
         {
-            agility = 0.03;
+            agility = 0.06;
             isKnight = false;
         }
         lvl = 1;
@@ -41,14 +41,14 @@ public class Hero : Character, IMappable
         }
     }
     char IMappable.Symbol => 'H';
-    public override string Info() => $"{Name}";
+    public override string Info() => $"{name}";
 
     public string Name
     {
         get => name;
-        init
+        set
         {
-            name = Name;
+            name = value;
         }
     }
 
@@ -67,18 +67,20 @@ public class Hero : Character, IMappable
 
     public void Level_up()
     {
-        lvl += lvl < 10 ? 1 : 0;
-        hp += 50;
+        lvl++;
+        hp += hp < 500 ? 50 : 25;
         exp_owned -= exp_to_lvl_up;
         exp_to_lvl_up += 50;
 
         if (isKnight)
         {
-            defense = defense < 0.5 ? defense += 0.045 : defense;
+            defense = defense < 0.5 ? defense += 0.05 : defense;
+            defense = Math.Round(defense, 2);
         }
         else
         {
             agility = agility < 0.33 ? agility += 0.03 : agility;
+            agility = Math.Round(agility, 3);
         }
     }
 }
