@@ -12,36 +12,53 @@ public class Program
     public static void Main(string[] args)
     {
         Hero bohater = new('S');
+        bohater.Name = "Szyszka";
 
-        FiniteMap mapa1 = new(10, 10);
-        List<IMappable> mapp = new List<IMappable>
+
+
+        for (int i = 0; i <= 15; i++)
         {
-            bohater,
-            new Scout(1, 0.1),
-            new Knight(2, 0.4),
-            new Scout(3, 0.1),
-            new Knight(4, 0.4),
-            new Scout(5, 0.1)
-        };
+            bohater.Fight_won(i * 50);
+            Console.WriteLine($"{bohater.Level} - {bohater.Stat} - {bohater.HP}");
+        }
 
+        Environment.Exit(0);
+
+
+        InfiniteMap mapa1 = new(10, 10);
+
+        List<IMappable> mapp = EnemiesGenerator.Generate(mapa1, bohater);
         List<Point> pos = PositionsGenerator.Generate(mapp.Count);
 
 
         Game newgame = new(mapa1, mapp, pos);
 
-        for(int i = 0; i < 6; i++)
+        bohater.Fight_won(50 * 50);
+
+
+        for (int i = 0; i < pos.Count; i++)
         {
-            Console.WriteLine($"{mapp[i]} - {pos[i]}");
+            if (mapp[i] is Scout)
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine($"{(mapp[i] as Character)!.Info()} lvl: {(mapp[i] as Character)!.Level} - agility: {(mapp[i] as Scout)!.Agility}");
+            }
+            else if (mapp[i] is Knight)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"{(mapp[i] as Character)!.Info()}    lvl: {(mapp[i] as Character)!.Level} - defence: {(mapp[i] as Knight)!.Defense}");
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine($"{(mapp[i] as Character)!.Info()}      lvl: {(mapp[i] as Character)!.Level} - agility: {(mapp[i] as Hero)!.Stat}");
+            }
+
+
+            Console.ResetColor();
+            //Console.Write($"{mapp[i].Symbol}: {mapp[i]} - {pos[i]} - ");
         }
 
-        Environment.Exit(0);
-
-        for(int i = 0; i <= 15; i++)
-        {
-            bohater.Fight_won(i*50);
-            Console.WriteLine(bohater.Level);
-            Console.WriteLine(bohater.Stat);
-        }
 
 
         Knight knight = new(1, 0.05);

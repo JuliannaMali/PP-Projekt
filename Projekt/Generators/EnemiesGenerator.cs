@@ -22,17 +22,36 @@ public static class EnemiesGenerator
                 if(randomtype == 1)
                 {
                     //zakres 0.05 - 0.15
-                    double randomstat = random.NextDouble() * ();
-                    lista.Add(new Scout(randomlvl, randomstat));
+                    //Scout
+                    double randomstat = random.NextDouble() * 0.02 + 0.02;
+                    lista.Add(new Scout(randomlvl, Math.Round(randomstat * randomlvl, 2)));
                 }
                 else
                 {
-
+                    //zakres 0.1 - 0.25
+                    //Knight
+                    double randomstat = random.NextDouble() * 0.01 + 0.04;
+                    lista.Add(new Knight(randomlvl, Math.Round(randomstat * randomlvl, 2)));
                 }
             }
             else
             {
                 //Trudna mapa
+                int randomlvl = random.Next(6, 11);
+                if (randomtype == 1)
+                {
+                    //zakres 0.20 - 0.33
+                    //Scout
+                    double randomstat = random.NextDouble() * 0.008 + 0.025;
+                    lista.Add(new Scout(randomlvl, Math.Round(randomstat * randomlvl, 2)));
+                }
+                else
+                {
+                    //zakres 0.3 - 0.5
+                    //Knight
+                    double randomstat = random.NextDouble() * 0.01 + 0.04;
+                    lista.Add(new Knight(randomlvl, Math.Round(randomstat*randomlvl, 2)));
+                }
             }
         }
 
