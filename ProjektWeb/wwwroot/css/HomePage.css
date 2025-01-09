@@ -1,0 +1,31 @@
+﻿#opis {
+    background: radial-gradient(
+        circle,
+        rgba(234, 218, 206, 0.4), 
+        rgba(234, 218, 206, 0.4), 
+        rgba(234, 218, 206, 0.1), 
+        rgba(234, 218, 206, 0)), 
+        url('../Images/old-paper.png');
+    background-size: 55% 100%;
+    border: 2px solid black;
+    height: 78vh;
+    font-size: 25px;
+    background-position: center;
+    background-repeat: no-repeat;
+    fill-opacity: 0.5;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    margin-top: 0.75%;
+    text-align: center;
+    background-color: var(--navbar-color)
+}
+
+#copy {
+    margin: 0%;
+    font-size: 20px;
+}
