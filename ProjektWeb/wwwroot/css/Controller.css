@@ -1,60 +1,104 @@
-﻿div#container{
-    display: flex;
-    border: 2px solid red;
+﻿:root{
+    --container-color: #7E5535;
 }
 
-div#controller{
-    border:2px solid black;
+
+div#container{
+    display: flex;
+    border: 2px solid red;
+    align-items: center;
+    margin-left: 1%;
+    margin-right: 1%;
+    margin-bottom: 0.5%
+}
+
+div#controller {
+    border: 2px solid black;
     border-radius: 30px;
-    width: 20vw;
+    background-color: rgba(126, 85, 53, 0.2);
+    width: 40vh;
+    height: 40vh;
     align-content: center;
     text-align: center;
     align-items: center;
-
-    padding: 20px
+    margin-left: 2%;
 }
 
 div#top{
-    display: flex;
+    display:flex;
     height: 10vh;
-    border: 1px solid lightblue;
+    align-items:center;
+    justify-content: center;
 
 }
 
 div#middle{
+    display:flex;
     height: 10vh;
+    justify-content: center;
+    align-items: center;
 
 }
 
 div#bottom{
     display: flex;
+    height: 10vh;
     align-items:center;
+    justify-content: center;
 }
 
 div#controller > div > svg{
-    height: 10vh;
+    height: 15vh;
 }
 
 form{
-    width: 100%;
-    height:100%;
+    width: 5vw;
+    height:7vh;
+    padding: 4%;
 }
 
-.trianglebutton{
-    background-color: black;
+.trianglebutton {
+    background-color: var(--container-color);
     height: 7vh;
-    width: 5vw; 
-    align-items: center;
+    width: 3.3vw;
     justify-content: center;
-    clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+    clip-path: polygon(50% 0%, 100% 100%, 50% 85%, 0% 100%);
     cursor: pointer;
     position: relative;
 }
 
-.trianglebutton#even{
+.trianglebutton#TopLeft{
     transform: rotate(330deg)
 }
 
-.trianglebutton#odd {
+.trianglebutton#TopRight {
     transform: rotate(30deg)
+}
+
+.trianglebutton#Left{
+    transform: rotate(270deg)
+}
+
+.trianglebutton#Right {
+    transform: rotate(90deg)
+}
+
+.trianglebutton#DownLeft {
+    transform: rotate(210deg)
+}
+
+.trianglebutton#DownRight {
+    transform: rotate(150deg)
+}
+
+image{
+    object-fit: cover;
+}
+
+.trianglebutton:hover { 
+    transition: width 0.35s, height 0.35s, background-color 0.35s;
+    width: 3.8vw;
+    height: 7.5vh;
+    background-color: #B47C50;
+    transition-timing-function:ease-in-out;
 }

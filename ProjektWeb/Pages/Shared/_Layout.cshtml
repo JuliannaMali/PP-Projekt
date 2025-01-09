@@ -11,16 +11,19 @@
 </head>
 <body>
     <header>
-        <b id="site-name">Projekt</b>
+        <b id="site-name">Project</b>
         <nav>
-            <a asp-area="" asp-page="/Index">Strona Główna</a>
-            <a asp-area="" asp-page="/Zasady">Zasady</a>
-            <a asp-area="" asp-page="/Map1">Gra - Poziom 1</a>
-            <a asp-area="" asp-page="/Map2">Gra - Poziom 2</a>
+            <a asp-area="" asp-page="/Index">Home&nbsp; Page</a>
+            <a asp-area="" asp-page="/Zasady">Rules</a>
+            <a asp-area="" asp-page="/Map1">Level&nbsp; 1</a>
+            <a asp-area="" asp-page="/Map2">Level&nbsp; 2</a>
         </nav>
     </header>
     <main>
         @RenderBody()
     </main>
+<footer>
+        <p id="copy">2025<br />&copy; Julianna&nbsp;&nbsp; Mali<br />&copy; Hubert&nbsp;&nbsp; Madej</p>
+</footer>
 </body>
 </html>

@@ -1,52 +1,57 @@
+@font-face {
+    font-family: 'EnchantedLand';
+    src: url('/Fonts/EnchantedLand.otf') format('opentype');
+}
+
+:root {
+    --main-text-color: #0B0704;
+    --background-color: #EADACE;
+    --navbar-color: #CDA789;
+    --link-color: #442E1D;
+}
+
+html{
+    font-family: 'EnchantedLand', sans-serif;
+}
+
 body {
-    background-color: gray;
+    background-color: var(--background-color);
+    margin: 0;
 }
 
-
-/*div#mapa1 {*/
-/*    display: flex;*/
-/*    grid-template-columns: max-content repeat(16, max-content);
-    grid-template-rows: repeat(12, 1fr) max-content;*/
-    /*align-items: center;
-    margin: auto;
-    width:59vw;
-    height:87vh;
-
-    background-color: rgba(0,0,0,0.2);
-    padding: 10px 100px 10px 40px;
-    border: 2px solid black;
-    border-radius: 40px
+header {
+    display: flex;
+    background-color: var(--navbar-color);
+    margin-bottom: 0.75%;
+    padding: 5px;
 }
 
-
-div#rows{
-    display:flex;
+#site-name {
+    padding: 5px 40px 5px 30px;
+    color: var(--main-text-color);
+    font-size: 40px;
 }
 
-
-svg > defs > clipPath > polygon {
-    stroke: blue;
-    stroke-width: 3;
-
-}
-div > div * {
-    height: 7vh;
-    width: auto;
+nav {
+    font-size: 25px;
+    margin-top: auto;
+    margin-bottom: auto;
+    align-items: center;
 }
 
-
-svg > image {
-    height:10vh;
+a, a:visited{
+    padding: 10px;
+    text-decoration: none;
+    color: var(--link-color);
 }
 
-polygon#hex{
-    fill: blue;
+footer{
+    margin-top: 0.75%;
+    text-align:center;
+    background-color: var(--navbar-color)
 }
 
-polygon#obramowka {
-    fill: lightblue;
-    stroke: black;
-    stroke-width: 3px;
-}*/
-
-
+#copy{
+    margin: 0%;
+    font-size: 20px;
+}
