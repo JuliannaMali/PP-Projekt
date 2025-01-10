@@ -10,7 +10,8 @@ div#mapa1 {
     background-color: rgba(126, 85, 53, 0.2);
     padding: 10px 100px 10px 40px;
     border: 2px solid black;
-    border-radius: 40px
+    border-radius: 40px;
+    margin-top: 1.75%
 }
 
 
@@ -30,7 +31,7 @@ div#mapa1 > div * {
 
 }
 
-div#rows:nth-child(even) {
+div#rows:nth-child(odd) {
     left: 1.75vw;
 }
 

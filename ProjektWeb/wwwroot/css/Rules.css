@@ -1,0 +1,8 @@
+﻿#bg1 {
+    background: linear-gradient( rgba(243, 223, 186, 0.1) 50%, rgba(243, 223, 186,0.2) 70%), url('../Images/backgrounds/rulesBG.jpg');
+    background-repeat: no-repeat;
+    border: 1px solid black;
+    height: 90.7vh;
+    width: 99.9vw;
+    background-size: 100% 100%;
+}

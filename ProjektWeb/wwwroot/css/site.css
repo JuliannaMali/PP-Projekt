@@ -4,14 +4,15 @@
 }
 
 :root {
-    --main-text-color: #0B0704;
+    --main-text-color: rgb(243, 223, 186);
     --background-color: #EADACE;
-    --navbar-color: #CDA789;
-    --link-color: #442E1D;
+    --navbar-color: rgb(115, 71, 43);
+    --link-color: rgb(238, 206, 147);
 }
 
 html{
     font-family: 'EnchantedLand', sans-serif;
+    letter-spacing: 1.8px;
 }
 
 body {
@@ -22,7 +23,6 @@ body {
 header {
     justify-items: center;
     background-color: var(--navbar-color);
-    margin-bottom: 1.75%;
     padding: 5px;
 }
 

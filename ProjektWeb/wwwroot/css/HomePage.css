@@ -1,21 +1,39 @@
-﻿#opis {
+﻿#bg1 {
+    background: linear-gradient(180deg, rgba(234, 218, 206, 0.1) 50%, rgba(234, 218, 206,0.1) 100%), url(../Images/backgrounds/homepageBackground.jpg);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    border: 0.01px #442E1D solid;
+}
+
+
+#bg2 {
+    margin-top: 1.75%;
+    margin-bottom: 2%;
     background: radial-gradient(
         circle,
-        rgba(234, 218, 206, 0.4), 
-        rgba(234, 218, 206, 0.4), 
-        rgba(234, 218, 206, 0.1), 
-        rgba(234, 218, 206, 0)), 
-        url('../Images/old-paper.png');
-    background-size: 55% 100%;
-    border: 2px solid black;
+        rgba(234, 218, 206, 0.4) 20%, 
+        rgba(234, 218, 206, 0.1) 40%, 
+        rgba(55, 41, 34, 0.2) 50%), 
+        url('../Images/backgrounds/old-paper.png');
+    background-size: 35% 100%;
     height: 78vh;
     font-size: 25px;
     background-position: center;
     background-repeat: no-repeat;
     fill-opacity: 0.5;
+    justify-items: center;
+    align-content: center;
+}
+
+#opis{
+    width: 15vw;
+    height: 30vh;
+    align-items: center;
+    text-align: center;
 }
 
 footer {
+    color: var(--main-text-color);
     position: fixed;
     bottom: 0;
     left: 0;
