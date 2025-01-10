@@ -35,7 +35,7 @@ public class Game
         }
     }
 
-    public void Turn()
+    public void Turn(Direction herodir)
     {
         if (counter == 0)
         {
@@ -55,7 +55,7 @@ public class Game
             if(HeroIsMoving)
             {
                 //Funkcja która zmienia <div ruch></div> na visible
-
+                Mappables[0].Go(herodir);
                 //Mappables[0].Go(&handler);
                 HeroIsMoving = false;
             }

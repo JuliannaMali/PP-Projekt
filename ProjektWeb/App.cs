@@ -12,6 +12,9 @@ public static class App
 
     static App()
     {
+        Hero heros = new('K');
+        heros.Name = "Artur";
+
         Game1 = new Game(
             new FiniteMap(17, 14),
             new List<IMappable> { },
@@ -20,16 +23,8 @@ public static class App
 
         Game2 = new Game(
             new InfiniteMap(17, 14),
-            new List<IMappable> {
-                new Hero('S'),
-                new Scout(2, 2),
-                new Knight(3, 3)
-            },
-            new List<Point> { 
-                new Point(4, 4, null, null),
-                new Point(null, null, 0, 0),
-                new Point(3, 3, null, null)
-            }
+            Projekt.Generators.EnemiesGenerator.Generate(new InfiniteMap(17, 14), heros),
+            Projekt.Generators.PositionsGenerator.Generate(20)
             );
     }
 }
