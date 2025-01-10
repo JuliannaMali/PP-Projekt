@@ -10,7 +10,7 @@ public class Game
     public List<IMappable> Mappables;
     public List<Point> Positions;
 
-    public bool HeroIsMoving = true;
+    public bool HeroIsMoving { get; set; } = true;
 
     //Mthds
     public Game(Map mapa, List<IMappable> mappables, List<Point> positions)
@@ -35,7 +35,7 @@ public class Game
         }
     }
 
-    public void Turn(Direction herodir)
+    public void HeroTurn(Direction herodir)
     {
         if (counter == 0)
         {
@@ -51,24 +51,13 @@ public class Game
         }
         else
         {
-            //Mapa z wrogami
-            if(HeroIsMoving)
-            {
-                //Funkcja która zmienia <div ruch></div> na visible
-                Mappables[0].Go(herodir);
-                //Mappables[0].Go(&handler);
-                HeroIsMoving = false;
-            }
-            else
-            {
-                for(int i = 1; i <= counter; i++)
-                {
-                    Direction dir = MoveGenerator.Generate();
-                    Mappables[i].Go(dir);
-                    Console.WriteLine($"{Mappables[i]} goes {dir}");
-                }
-                HeroIsMoving = true;
-            }
+            Mappables[0].Go(herodir);
         }
+    }
+
+    public void EnemiesTurn(int index)
+    {
+        Direction dir = MoveGenerator.Generate();
+        Mappables[index].Go(dir);
     }
 }
