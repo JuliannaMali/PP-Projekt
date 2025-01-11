@@ -8,5 +8,99 @@
 
 
 <div id="bg1">
-    <p>test</p>
+    <div id="top">
+
+        <div class="stickynote bigger" id="s1">
+            <div class="nail bigger"></div>
+            <div class="note bigger">
+                <div class="notetext lefttext">
+                    <p class="title">Levele</p>
+                    <p class="info">Każda postać na mapie ma swój poziom, włącznie z graczem.<br />Poziomy przeciwników losowane są na początku rozgrywki i są niezmienne.<br/>Po pokonaniu przeciwnika gracz będzie zdobywał punkty exp potrzebne do zwiększenia poziomu.<br /> Po zdobyciu potrzebnej ilości exp, poziom gracza zostanie automatycznie zwiększony. <br />Na pierwszym poziomie rozgrywki pojawiają się słabsi przeciwnicy, na drugim silniejsi.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="stickynote" id="s2">
+            <div class="nail"></div>
+            <div class="note">
+                <div class="notetext lefttext">
+                    <p class="title">Poziomy Rozgrywki</p>
+                    <p class="info"> Gra składa się z dwóch poziomów.<br />Pierwszy odbywa się na mapie ograniczonej.<br />Drugi na mapie nieograniczonej.<br />Oznacza to, że można przejść przez brzeg i pojawić się na drugim końcu mapy.<br/>Aby przejść poziom należy pokonać wszystkich przeciwników.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="stickynote bigger" id="s3">
+            <div class="nail2 bigger"></div>
+            <div class="note2 bigger">
+                <div class="notetext righttext">
+                    <p class="title">Statystyki</p>
+                    <p class="info">Każda postać posiada statystkę zdrowia zależną od poziomu.<br />Gracz może zwiększać swoje zdrowie wraz ze zwiększeniem poziomu.<br />Od poziomu 1 do 10 zdrowie gracza zwiększa się o 50pkt, później o 25pkt.<br />Wojownik posiada statystkę obrony, zwiadowca statystkę zwinności.<br />Obie są zależne od poziomu.<br />Gracz może zwiększać swoją zwinność/obronę wraz z levelowaniem.<br />Wraz z levelem 10 osiąga się maksymalną zwinność/obronę</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="bottom">
+        <div class="stickynote" id="s4">
+            <div id="ani">
+                <div class="nail"></div>
+                <div class="note">
+                    <div class="notetext lefttext">
+                        <p class="title">Klasy</p>
+                        <p class="info">W grze są 2 klasy postaci:<br />wojownik i zwiadowca.<br />Wojownik ma na sobie zbroję, która chroni przed częścią obrażeń.<br />Zwiadowca jest zwinny, dzięki czemu ma szansę na uniknięcie ataku.<br/>Na początku rozgrywki gracz może wybrać klasę postaci.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="stickynote smaller" id="s5">
+            <div id="ani">
+                <div class="nail2 smaller"></div>
+                <div class="note2 smaller">
+                    <div class="notetext righttext">
+                        <p class="title">Ruch</p>
+                        <p class="info">Ruch następuje turowo.<br />Najpierw porusza się gracz, następnie wszyscy przeciwnicy.<br />Gracz porusza się klikając na odpowiednią strzałkę na kontrolerze zlokalizowanym po lewej stronie ekranu.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="stickynote" id="s6">
+            <div id="ani">
+                <div class="nail2"></div>
+                <div class="note2">
+                    <div class="notetext righttext">
+                        <p class="title">Walka</p>
+                        <p class="info">Walka rozpoczyna się gdy bohater stanie na jednym polu z przeciwnikiem.<br />Walkę rozpoczyna postać z większą zwinnością bądź mniejszą obroną.<br />Obrażenia zadawane są na zmianę turami.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="stickynote" id="s7">
+            <div id="ani">
+                <div class="nail2"></div>
+                <div class="note2">
+                    <div class="notetext righttext">
+                        <p class="title">Wygrana</p>
+                        <p class="info">Aby wygrać grę należy pokonać Króla pojawiającego się na drugim poziomie.<br />Jeśli gracz przegra którąkolwiek z walk gra się kończy.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <a asp-area="" asp-page="Map1" id="game">Graj</a>
+
+    </div>
+
 </div>
+
+
+
+<footer>
+    <p id="copy">2025<br />&copy; Julianna&nbsp;&nbsp; Mali<br />&copy; Hubert&nbsp;&nbsp; Madej</p>
+</footer>
+
+<script src="/js/notatka.js"></script>
