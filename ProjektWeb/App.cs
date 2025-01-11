@@ -24,7 +24,7 @@ public static class App
         Game2 = new Game(
             new InfiniteMap(17, 14),
             Projekt.Generators.EnemiesGenerator.Generate(new InfiniteMap(17, 14), heros),
-            Projekt.Generators.PositionsGenerator.Generate(20)
+            Projekt.Generators.PositionsGenerator.Generate(21)
             );
     }
 }

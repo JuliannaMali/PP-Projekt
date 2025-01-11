@@ -7,9 +7,15 @@
 <link rel="stylesheet" href="~/css/MapView.css" asp-append-version="true" />
 
 
+
 <div id="container">
 
     <div id="controller">
+        <form method="post" asp-page-handler="Enemies" style="visibility:hidden;position:absolute;display:inline">
+            <button type="submit" id="ruchy" style="visibility:hidden;position:absolute;display:inline">Ruchy</button>
+        </form>
+        <span id="wait" style="color:crimson; font-size:35px; padding-top:300px;">Tura przeciwnika</span>
+
         <div id="top">
             <form method="post" asp-page-handler="TopLeft">
                 <button type="submit" class="trianglebutton" id="TopLeft"></button>
@@ -122,3 +128,35 @@
     </div>
 
 </div>
+
+
+@if(Model.EnemiesMove)
+{
+    <script>
+        const buttons = document.querySelectorAll('.trianglebutton');
+        const napis = document.getElementById('wait');
+        napis.style.visibility = 'visible';
+
+        const baseText = "Tura przeciwnika";
+        
+        napis.textContent = baseText + ".".repeat(@Model.EnemiesCounter%4);
+
+        buttons.forEach(function(button) {
+                button.style.visibility = 'hidden';
+              });
+        document.getElementById("ruchy").click();
+    </script>
+
+}
+else
+{
+    <script>
+        const buttons = document.querySelectorAll('.trianglebutton');
+        const napis = document.getElementById('wait');
+        napis.style.visibility = 'hidden';
+
+        buttons.forEach(function(button) {
+                button.style.visibility = 'visible';
+              });
+    </script>
+}
