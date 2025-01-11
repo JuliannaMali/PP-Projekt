@@ -11,7 +11,7 @@ public static class EnemiesGenerator
 
         Random random = new();
 
-        while(lista.Count < 20)
+        while(lista.Count < 21)
         {
             int randomtype = random.Next(0, 2);
             

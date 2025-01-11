@@ -57,7 +57,21 @@ public class Game
 
     public void EnemiesTurn(int index)
     {
-        Direction dir = MoveGenerator.Generate();
-        Mappables[index].Go(dir);
+        int proba = 0;
+        while(true)
+        {
+            if (proba > 50) break;
+            Direction dir = MoveGenerator.Generate();
+
+            Point punkt = (Mappables[index] as Character)!.Position;
+
+            if (! (Map.At(punkt.Next(dir)) is Scout ||
+                   Map.At(punkt.Next(dir)) is Knight) )
+            {
+                Mappables[index].Go(dir);
+                break;
+            }
+            proba++;
+        }
     }
 }
