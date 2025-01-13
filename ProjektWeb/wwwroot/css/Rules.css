@@ -35,7 +35,7 @@
 
 .stickynote:hover > *{
     animation-play-state: paused;
-    cursor: pointer;
+    cursor:pointer;
 }
 
 
@@ -64,7 +64,7 @@
 
     animation: wind 4s infinite;
 
-    cursor: 
+
 }
 
 
@@ -163,6 +163,24 @@
 
 .info{
     margin: 0;
+}
+
+
+#hero{
+    display: flex;
+    position: relative;
+    height: 70vh;
+    z-index: 8000;
+    bottom: 42vh;
+    right: 42vw;
+}
+
+#hero > *{
+    height: 70%;
+    border: 2px solid green;
+    align-content: center;
+    text-align:center;
+    margin: 3%;
 }
 
 
