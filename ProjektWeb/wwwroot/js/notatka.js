@@ -1,4 +1,12 @@
-﻿let counter = 7;
+﻿document.querySelector("#scout").addEventListener("click", function () {
+    document.querySelector("#scoutcheck").click();
+})
+
+document.querySelector("#knight").addEventListener("click", function () {
+    document.querySelector("#knightcheck").click();
+})
+
+let counter = 7;
 
 const note = document.getElementById("ani")
 
@@ -25,5 +33,3 @@ function zerwanie(id) {
         document.getElementById("game").style.visibility = 'visible';
     }
 }
-
-
