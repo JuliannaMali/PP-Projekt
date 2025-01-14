@@ -13,43 +13,8 @@ public class Program
     {
         Hero bohater = new('S');
         bohater.Name = "Szyszka";
-        bohater.Fight_won(1500);
 
-        Scout scout = new(5, 0.2);
 
-        var x = Fight.FightStart(bohater, scout)[1];
-
-        foreach (KeyValuePair<int, TurnCourse> element in (Dictionary<int, TurnCourse>)x)
-        {
-            Console.WriteLine($"\nTura: {element.Key}");
-            Console.WriteLine($"Obrażenia bohatera: {element.Value.hero_dmg}");
-            Console.WriteLine($"Obrażenia przeciwnika: {element.Value.enem_dmg}");
-
-            if (element.Value.curr_hero_hp <= 0)
-            {
-                //game_over
-                Console.WriteLine("lost");
-                Environment.Exit(0);
-            }
-            else
-            {
-                //walka toczy się dalej, chyba że przeciwnik umarł
-                Console.WriteLine($"Życie bohatera:{element.Value.curr_hero_hp}");
-            }
-
-            if (element.Value.curr_enem_hp <= 0)
-            {
-                //wygrana walka
-                bohater.Fight_won((int)(((Dictionary<int, TurnCourse>)x)[1].curr_hero_hp / 50) * 15);
-                Console.WriteLine($"win, zdobyłeś {scout.Level * 15} exp");
-            }
-            else
-            {
-                //walka toczy się dalej
-                Console.WriteLine($"Życie przeciwnika:{element.Value.curr_enem_hp}");
-            }
-        }
-        Environment.Exit(0);
 
         for (int i = 0; i <= 15; i++)
         {
@@ -57,6 +22,7 @@ public class Program
             Console.WriteLine($"{bohater.Level} - {bohater.Stat} - {bohater.HP}");
         }
 
+        Environment.Exit(0);
 
 
         InfiniteMap mapa1 = new(10, 10);
@@ -95,5 +61,51 @@ public class Program
 
 
 
+        Knight knight = new(1, 0.05);
+        Scout scout = new(10, 0.5);
+
+        var x = Fight.FightStart(bohater, scout)[1];
+
+        //foreach(KeyValuePair<int, TurnCourse> element in (Dictionary<int, TurnCourse>)x)
+        //{
+        //    Console.WriteLine($"Tura: {element.Key}");
+        //    Console.WriteLine($"Obrażenia bohatera: {element.Value.hero_dmg}");
+        //    Console.WriteLine($"Obrażenia przeciwnika: {element.Value.enem_dmg}");
+        //    Console.WriteLine($"Życie bohatera:{element.Value.curr_hero_hp}");
+        //    Console.WriteLine($"Życie przeciwnika:{element.Value.curr_enem_hp}\n");
+        //}
+
+        x = Fight.FightStart(bohater, scout)[1];
+
+        foreach (KeyValuePair<int, TurnCourse> element in (Dictionary<int, TurnCourse>)x)
+        {
+            Console.WriteLine($"\nTura: {element.Key}");
+            Console.WriteLine($"Obrażenia bohatera: {element.Value.hero_dmg}");
+            Console.WriteLine($"Obrażenia przeciwnika: {element.Value.enem_dmg}");
+
+            if (element.Value.curr_hero_hp <= 0)
+            {
+                //game_over
+                Console.WriteLine("lost");
+                Environment.Exit(0);
+            }
+            else
+            {
+                //walka toczy się dalej, chyba że przeciwnik umarł
+                Console.WriteLine($"Życie bohatera:{element.Value.curr_hero_hp}");
+            }
+
+            if (element.Value.curr_enem_hp <= 0)
+            {
+                //wygrana walka
+                bohater.Fight_won((int)(((Dictionary<int, TurnCourse>)x)[1].curr_hero_hp/50) * 15);
+                Console.WriteLine($"win, zdobyłeś {knight.Level * 15} exp"); 
+            }
+            else
+            {
+                //walka toczy się dalej
+                Console.WriteLine($"Życie przeciwnika:{element.Value.curr_enem_hp}");
+            }
+        }
     }
 }

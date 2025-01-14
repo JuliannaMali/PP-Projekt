@@ -84,22 +84,26 @@
         </div>
         
 
-        <div id="hero">
+        <div id="hero" >
             <div id="knight">
-                <img src="~/Images/characters/knight.png" />
-                <input id="knightcheck" type="radio" name="herochoice" value=""/>
+                <img id="knightimg" src="~/Images/characters/knight.png" />
+                <input id="knightcheck" type="radio" name="herochoice" style="visibility: hidden"/>
             </div>
             
             <div id="scout">
-                <img src="~/Images/characters/scout.png" />
-                <input id="scoutcheck" type="radio" name="herochoice" />
+                <img id="scoutimg" src="~/Images/characters/scout.png" />
+                <input id="scoutcheck" type="radio" name="herochoice" style="visibility: hidden"/>
             </div>
         </div>
 
 
-        <a asp-area="" asp-page="Map1" id="game">Graj</a>
 
     </div>
+
+    <input id="namehero" type="text" placeholder="" required/>
+    
+    <a asp-area="" asp-page="Map1" id="game"></a>
+
 
 </div>
 

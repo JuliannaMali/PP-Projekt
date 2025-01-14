@@ -73,7 +73,7 @@ public class Hero : Character, IMappable
     public void Level_up()
     {
         lvl++;
-        hp += 50;
+        hp += hp < 500 ? 50 : 25;
         exp_owned -= exp_to_lvl_up;
         exp_to_lvl_up += 50;
 

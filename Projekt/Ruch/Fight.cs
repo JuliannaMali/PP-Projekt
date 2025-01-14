@@ -18,7 +18,7 @@ public static class Fight
 
         if(enemy is Knight)
         {
-            enemy_stat = (enemy as Knight)!.Defense;
+            enemy_stat = (enemy as Knight).Defense;
             unik_e = false;
 
             if(hero.isKnight)
@@ -39,7 +39,7 @@ public static class Fight
         }
         else 
         {
-            enemy_stat = (enemy as Scout)!.Agility;
+            enemy_stat = (enemy as Scout).Agility;
             unik_e = true;
 
             if (hero.isKnight)

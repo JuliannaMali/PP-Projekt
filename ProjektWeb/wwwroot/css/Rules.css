@@ -12,7 +12,7 @@
     background: linear-gradient( rgba(243, 223, 186, 0.1) 50%, rgba(243, 223, 186,0.2) 70%), url('../Images/backgrounds/rulesBG.jpg');
     background-repeat: no-repeat;
     border: 1px solid black;
-    height: 85vh;
+    height: 89vh;
     width: 99.9vw;
     background-size: 100% 100%;
 }
@@ -21,6 +21,9 @@
     display:flex;
 }
 
+#bottom{
+    height:15vh;
+}
 
 .stickynote{
     position: relative;
@@ -169,34 +172,68 @@
 #hero{
     display: flex;
     position: relative;
-    height: 70vh;
+    height: 60vh;
     z-index: 8000;
     bottom: 42vh;
     right: 42vw;
+    visibility: hidden;
 }
 
-#hero > *{
+#hero > * {
     height: 70%;
-    border: 2px solid green;
     align-content: center;
-    text-align:center;
-    margin: 3%;
+    text-align: center;
+    margin: 5%;
 }
 
+#knight:hover, #scout:hover{
+    cursor:pointer;
+}
+
+#knightimg, #scoutimg {
+    position: relative;
+    display: inline-block;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+#knightimg:hover, #scoutimg:hover{
+    -webkit-transform: scale(1.25, 1.25);
+    transform: scale(1.25, 1.25);
+}
+
+#namehero {
+    position: absolute;
+    z-index: 10000;
+    visibility: hidden;
+    padding: 10px;
+    width: 15vw;
+    text-align: center;
+    font-family: 'EnchantedLand', sans-serif;
+    font-size: 25px;
+    letter-spacing: 1.1px;
+    border: 2px solid black;
+    border-radius: 30px;
+    right: 42%;
+    top: 60vh;
+}
 
 #game {
-    position: relative;
-    width: 10vw;
+    position: absolute;
+    width: 15vw;
     height: 5vh;
-    right: 32%;
-    bottom: 10vh;
+    right: 42%;
+    top: 70vh;
     font-size: 35px;
     border: 2px solid black;
     border-radius: 30px;
-    background: 0;
     text-align: center;
     background-color: var(--navbar-color);
-    z-index: 9000;
+    z-index: 10000;
     opacity: 0;
     align-content: center;
     visibility: hidden;
