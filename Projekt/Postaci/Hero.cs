@@ -16,6 +16,11 @@ public class Hero : Character, IMappable
     public bool isKnight;
 
     //Mthds
+
+    public int Exp_to_lvl_up { get => exp_to_lvl_up; }
+    public int Exp_owned { get => exp_owned; }
+
+
     public Hero(char t)
     {
         if (t == 'K')

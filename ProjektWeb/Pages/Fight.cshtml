@@ -1,52 +1,124 @@
 ﻿@page
 @model ProjektWeb.Pages.WalkaModel
 @{
+    Projekt.Postaci.Hero bohater = (Model.Game.Mappables[0] as Projekt.Postaci.Hero)!;
+    bohater.Fight_won(200);
+    Projekt.Postaci.Scout przeciwnik = new Projekt.Postaci.Scout(2, 0.25);
+
+    var walka = Projekt.Ruch.Fight.FightStart(bohater, przeciwnik);
+    var przebieg_walki = walka[1];
+
+    object[] hero_info = [
+        ((Projekt.Ruch.Fight.WhoIsFighting)walka[0]).hero_name,
+        ((Projekt.Ruch.Fight.WhoIsFighting)walka[0]).hero_stats
+    ];
+
+    object[] enemy_info = [
+        ((Projekt.Ruch.Fight.WhoIsFighting)walka[0]).enemy_name,
+        ((Projekt.Ruch.Fight.WhoIsFighting)walka[0]).enemy_stats
+    ];
+
 }
 
+<link rel="stylesheet" href="~/css/Fight.css" asp-append-version="true" />
 
 <content>
+    <div class="container">
+        <div id="hero">
+            <div>
+                <img src="~/Images/characters/hero.png"/>
+                <div class="expbar">
+                    <span>@bohater.Exp_owned</span>
+                    <span>/ @bohater.Exp_to_lvl_up</span>
+                </div>
+                <div class="hph hp">&nbsp;</div>
+                <div class="liczby"> 
+                    <span id="actual_hero_hp">@((int)((List<object>)hero_info[1])[0] * 50)</span>
+                    <span>/ @((int)((List<object>)hero_info[1])[0] * 50)</span>
+                </div>
+            </div>
+            <div id="hero-info">
+                @hero_info[0]
+                <br />
+                Level: @(((List<object>)hero_info[1])[0])<br />
+                @if(bohater.isKnight)
+                {
+                    <p>Defense: @(((List<object>)hero_info[1])[1])</p>
+                }
+                else
+                {
+                    <p>Agility: @(((List<object>)hero_info[1])[1])</p>
+                }                    
+            </div>
+        </div>
+        <div id="logs">
+            <div>
+                <div id="log-area"></div>
+            </div>
+            <div>
+                <form method="post" asp-page-handler="Enemies">
+                    <button type="submit" id="ruchy2" style="visibility:visible;display:inline">NIE KLIKAJ</button>
+                </form>
+            </div>
+        </div>
+        <div id="enemy">
+            <div>
+                <img src="~/Images/characters/scout.png" />
+                <div class="hpe hp">&nbsp;</div>
+                <div class="liczby">
+                    <span id="actual_enemy_hp">@((int)((List<object>)enemy_info[1])[0] * 50)</span>
+                    <span>/ @((int)((List<object>)enemy_info[1])[0] * 50)</span>
+                </div>
+            </div>
+            <div id="hero-info">
+                @enemy_info[0]
+                <br />
+                Level: @(((List<object>)enemy_info[1])[0])<br />
+                Agility: @(((List<object>)enemy_info[1])[1])
+            </div>
+        </div>
+    </div>
     <button id="walka">Walcz!</button>
     @{
-        Projekt.Postaci.Hero bohater = (Model.Game.Mappables[0] as Projekt.Postaci.Hero)!;
-        Projekt.Postaci.Scout przeciwnik = (Model.Game.Mappables[1] as Projekt.Postaci.Scout)!;
-
-        bohater.Fight_won(1500);
-
         var x = Projekt.Ruch.Fight.FightStart(bohater, przeciwnik)[1];
+
     }
 
     @{
-        foreach (KeyValuePair<int, Projekt.Ruch.TurnCourse> element in (Dictionary<int, Projekt.Ruch.TurnCourse>)x)
+        if(true)
         {
-            <log id="@element.Key" style="visibility:hidden">
-                Tura: @element.Key
-                Obrażenia bohatera: @element.Value.hero_dmg
-                Obrażenia przeciwnika: @element.Value.enem_dmg
+            foreach (KeyValuePair<int, Projekt.Ruch.TurnCourse> element in (Dictionary<int, Projekt.Ruch.TurnCourse>)x)
+            {
+                <log id="@element.Key" style="visibility:hidden">
+                    DMG bohatera: @element.Value.hero_dmg <br />
+                    DMG przeciwnika: @element.Value.enem_dmg <br />
 
-                @if (@element.Value.curr_hero_hp <= 0)
-                {
-                    //game_over
-                    <p>lost</p>
-                }
-                else
-                {
-                    //walka toczy się dalej, chyba że przeciwnik umarł
-                    <p>Życie bohatera: @element.Value.curr_hero_hp</p>
-                }
+                    @if (@element.Value.curr_hero_hp <= 0)
+                    {
+                        //game_over
+                        <p id="hero_hp" style="visibility:hidden; position: absolute;">0</p>
+                    }
+                    else
+                    {
+                        //walka toczy się dalej, chyba że przeciwnik umarł
+                        <p id="hero_hp" style="visibility:hidden; position: absolute;">@element.Value.curr_hero_hp</p>
+                    }
 
-                @if (@element.Value.curr_enem_hp <= 0)
-                {
-                    //wygrana walka
-                    double exp = przeciwnik.Level * 15;
-                    bohater.Fight_won((int)(((Dictionary<int, Projekt.Ruch.TurnCourse>)x)[1].curr_hero_hp / 50) * 15);
-                    <p>win, zdobyłeś @exp exp </p>
-                }
-                else
-                {
-                    //walka toczy się dalej
-                    <p>Życie przeciwnika: @element.Value.curr_enem_hp </p>
-                }
-            </log>
+                    @if (@element.Value.curr_enem_hp <= 0)
+                    {
+                        //wygrana walka
+                        double exp = przeciwnik.Level * 15;
+                        bohater.Fight_won((int)(((Dictionary<int, Projekt.Ruch.TurnCourse>)x)[1].curr_hero_hp / 50) * 15);
+                        <p>win, zdobyłeś @exp exp </p>
+                        <p id="enemy_hp" style="visibility:hidden; position: absolute;">0</p>
+                    }
+                    else
+                    {
+                        //walka toczy się dalej
+                        <p id="enemy_hp" style="visibility:hidden; position: absolute;">@element.Value.curr_enem_hp </p>
+                    }
+                </log>
+            }
         }
     }
 </content>
@@ -54,12 +126,40 @@
 
 <script>
     let tury = document.querySelectorAll('log');
+    const logi = document.querySelector('#log-area');
+
+    const curr_hero_hp = document.querySelector('#actual_hero_hp');
+    const curr_enem_hp = document.querySelector('#actual_enemy_hp');
+
+    let after_hit_hero = document.querySelectorAll('#hero_hp');
+    let after_hit_enem = document.querySelectorAll('#enemy_hp');
+
+    const hero_max_hp = Number(curr_hero_hp.textContent);
+    const enemy_max_hp = Number(curr_enem_hp.textContent);
+
+    const heroHPBar = document.querySelector('.hph');
+    const enemyHPBar = document.querySelector('.hpe');
 
     document.querySelector('#walka').addEventListener("click", async function() {
 
         for (let i = 0; i < tury.length; i++) 
         {
-            tury[i].style.visibility = 'visible';
+            curr_hero_hp.innerHTML = after_hit_hero[i].innerHTML;
+            curr_enem_hp.innerHTML = after_hit_enem[i].innerHTML;
+
+            let herohpPercentage = ((Number(curr_hero_hp.textContent.replace(',', '.'))) / hero_max_hp) * 100;
+            heroHPBar.style.width = herohpPercentage + '%';
+            let h_hue = (herohpPercentage * 120) / 100;
+            heroHPBar.style.backgroundColor = `hsl(${h_hue}, 100%, 35%)`;
+
+
+            let enemyhpPercentage = ((Number(curr_enem_hp.textContent.replace(',', '.'))) / enemy_max_hp) * 100;
+            enemyHPBar.style.width = enemyhpPercentage + '%';
+            let e_hue = (enemyhpPercentage * 120) / 100;
+            enemyHPBar.style.backgroundColor = `hsl(${e_hue}, 100%, 35%)`;
+
+            logi.innerHTML += tury[i].innerHTML;
+
             await new Promise(resolve => setTimeout(resolve, 1000));
         }
     });

@@ -12,7 +12,7 @@ public static class App
 
     static App()
     {
-        Hero heros = new('K');
+        Hero heros = new('S');
         heros.Name = "Artur";
 
         Game1 = new Game(

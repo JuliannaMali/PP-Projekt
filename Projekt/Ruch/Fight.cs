@@ -189,6 +189,6 @@ public static class Fight
         public WhoIsFighting(Hero hero, Character enemy) =>
             (hero_name, hero_stats, enemy_name, enemy_stats) =
             (hero.Info(), new List<object> { hero.Level, hero.Stat },
-            enemy.Info(), new List<object> { enemy.Level, enemy is Knight ? (enemy as Knight).Defense : (enemy as Scout).Agility });
+            enemy.Info(), new List<object> { enemy.Level, enemy is Knight ? (enemy as Knight)!.Defense : (enemy as Scout)!.Agility });
     }
 }
