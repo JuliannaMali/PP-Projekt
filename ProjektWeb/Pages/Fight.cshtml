@@ -1,0 +1,66 @@
+﻿@page
+@model ProjektWeb.Pages.WalkaModel
+@{
+}
+
+
+<content>
+    <button id="walka">Walcz!</button>
+    @{
+        Projekt.Postaci.Hero bohater = (Model.Game.Mappables[0] as Projekt.Postaci.Hero)!;
+        Projekt.Postaci.Scout przeciwnik = (Model.Game.Mappables[1] as Projekt.Postaci.Scout)!;
+
+        bohater.Fight_won(1500);
+
+        var x = Projekt.Ruch.Fight.FightStart(bohater, przeciwnik)[1];
+    }
+
+    @{
+        foreach (KeyValuePair<int, Projekt.Ruch.TurnCourse> element in (Dictionary<int, Projekt.Ruch.TurnCourse>)x)
+        {
+            <log id="@element.Key" style="visibility:hidden">
+                Tura: @element.Key
+                Obrażenia bohatera: @element.Value.hero_dmg
+                Obrażenia przeciwnika: @element.Value.enem_dmg
+
+                @if (@element.Value.curr_hero_hp <= 0)
+                {
+                    //game_over
+                    <p>lost</p>
+                }
+                else
+                {
+                    //walka toczy się dalej, chyba że przeciwnik umarł
+                    <p>Życie bohatera: @element.Value.curr_hero_hp</p>
+                }
+
+                @if (@element.Value.curr_enem_hp <= 0)
+                {
+                    //wygrana walka
+                    double exp = przeciwnik.Level * 15;
+                    bohater.Fight_won((int)(((Dictionary<int, Projekt.Ruch.TurnCourse>)x)[1].curr_hero_hp / 50) * 15);
+                    <p>win, zdobyłeś @exp exp </p>
+                }
+                else
+                {
+                    //walka toczy się dalej
+                    <p>Życie przeciwnika: @element.Value.curr_enem_hp </p>
+                }
+            </log>
+        }
+    }
+</content>
+
+
+<script>
+    let tury = document.querySelectorAll('log');
+
+    document.querySelector('#walka').addEventListener("click", async function() {
+
+        for (let i = 0; i < tury.length; i++) 
+        {
+            tury[i].style.visibility = 'visible';
+            await new Promise(resolve => setTimeout(resolve, 1000));
+        }
+    });
+</script>
