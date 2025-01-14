@@ -27,3 +27,10 @@ function zerwanie(id) {
 }
 
 
+const knight = document.getElementById('knight');
+
+knight.addEventListener("click", check)
+
+function check(id) {
+    document.getElement('herochoice')
+}
