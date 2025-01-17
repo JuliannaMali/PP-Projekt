@@ -81,27 +81,48 @@
 
                                 var element = @Model.Game1.Map.At(punkt);
 
-                                switch (element as Projekt.Postaci.Character)
-                                {
-                                    case Projekt.Postaci.Hero:
-                                        {
-                                            <image href="/Images/rabit.png" width="auto" height="10vh" x="22%" y="17%" clip-path="url(#clipPolygon3)" />
-                                            break;
-                                        }
-                                    case Projekt.Postaci.Scout:
-                                        {
-                                            <image href="/Images/hexagon-long-diagonals.png" width="auto" height="10vh" x="22%" y="17%" clip-path="url(#clipPolygon3)" />
-                                            break;
-                                        }
-                                    case Projekt.Postaci.Knight:
-                                        {
-                                            <image href="/Images/rabit.png" width="auto" height="10vh" x="22%" y="17%" clip-path="url(#clipPolygon3)" />
-                                            break;
-                                        }
+                                                               switch(element as Projekt.Postaci.Character) 
+                                { 
+                                    @*
+                                    case ((element as Projekt.Postaci.Knight).IsKing ???)
+                                    {
+                                        <image href="/Images/characters/King_icon" width="auto" height="10vh" x="22%"  y="17%" clip-path="url(#clipPolygon3)"/>
+                                    }
+                                    *@
+                                    case Projekt.Postaci.Hero: 
+                                        { 
+
+                                            if((element as Projekt.Postaci.Hero)!.isKnight)
+                                            {
+                                                <image href="/Images/characters/hero_knight__icon.png" width="auto" height="10vh" x="15%"  y="17%"/>
+                                            }
+                                            else
+                                            {
+                                                <image href="/Images/characters/hero_scout_icon.png" width="auto" height="10vh" x="15%"  y="17%" />
+                                            }
+
+                                             <style type="css">
+                                                #id_@(x) > svg:hover
+                                                {
+                                                    border:20px solid black;
+                                                }
+                                             </style>
+                                             break; 
+                                         } 
+                                    case Projekt.Postaci.Scout: 
+                                         {
+                                            <image href="/Images/characters/scout_head.png" width="auto" height="10vh" x="15%"  y="17%"/>
+                                            break; 
+                                         } 
+                                    case Projekt.Postaci.Knight: 
+                                         {
+                                            <image href="/Images/characters/knight_head.png" width="auto" height="10vh" x="15%"  y="17%"/>
+                                            break; 
+                                         }
                                     case null:
-                                        {
-                                            break;
-                                        }
+                                         { 
+                                             break; 
+                                         } 
                                 }
                             }
                         </svg>

@@ -1,10 +1,10 @@
 ﻿@page
-@model Map2Model
+@model Demo
 @{
     ViewData["Title"] = "Level 2";
 }
 <link rel="stylesheet" href="~/css/Controller.css" asp-append-version="true" />
-<link rel="stylesheet" href="~/css/MapView.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/Demo.css" asp-append-version="true" />
 
 
 
@@ -62,74 +62,74 @@
 
     <div id="mapa1">
 
-        @for (int y = Model.Game2.Map.SizeY - 1; y >= 0; y--)
+        @for (int y = Model.demo.Map.SizeY - 1; y >= 0; y--)
         {
-            double mnoz = y * 17 - 198;
-            var actualmnoz = mnoz.ToString("0.0", System.Globalization.CultureInfo.InvariantCulture);
+            double mnoz = y * 5 - 198;
+            var actualmnoz = -100 + mnoz.ToString("0.0", System.Globalization.CultureInfo.InvariantCulture);
 
-            <div id="rows" style="position:relative; top:@(actualmnoz)px;">
-                @for (int x = 0; x < Model.Game2.Map.SizeX; x++)
+            <div id="rows" style="position:relative; top: @(actualmnoz)px;">
+                @for (int x = 0; x < Model.demo.Map.SizeX; x++)
                 {
                     <div id="id_@x">
 
-                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"> 
-                             <defs> 
-                                 <clipPath id="clipPolygon3"> 
-                                     <polygon points="49.9,4.4     100,28.375   100,73.15  49.9,97.125  0,73.15  0,28.375" /> 
-                                 </clipPath> 
-                             </defs> 
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                            <defs>
+                                <clipPath id="clipPolygon3">
+                                    <polygon points="49.9,4.4     100,28.375   100,73.15  49.9,97.125  0,73.15  0,28.375" />
+                                </clipPath>
+                            </defs>
 
-                             <polygon points="49.9,1.4   100,28.375  100,73.15   49.9,100.125  0,73.15  0,28.375" id="obramowka" /> 
+                            <polygon points="49.9,1.4   100,28.375  100,73.15   49.9,100.125  0,73.15  0,28.375" id="obramowka" />
 
                             @{
                                 Projekt.Point punkt;
 
                                 punkt = y % 2 == 0 ? new Projekt.Point(x, y / 2, null, null) : new Projekt.Point(null, null, x, y / 2);
 
-                                var element = @Model.Game2.Map.At(punkt); 
+                                var element = @Model.demo.Map.At(punkt);
 
-                                switch(element as Projekt.Postaci.Character) 
-                                { 
+                                switch (element as Projekt.Postaci.Character)
+                                {
                                     @*
-                                    case ((element as Projekt.Postaci.Knight).IsKing ???)
-                                    {
-                                        <image href="/Images/characters/King_icon" width="auto" height="10vh" x="22%"  y="17%" clip-path="url(#clipPolygon3)"/>
-                                    }
-                                    *@
-                                    case Projekt.Postaci.Hero: 
-                                        { 
+                    case ((element as Projekt.Postaci.Knight).IsKing ???)
+                    {
+                    <image href="/Images/characters/King_icon" width="auto" height="10vh" x="22%"  y="17%" clip-path="url(#clipPolygon3)"/>
+                    }
+                    *@
+                                    case Projekt.Postaci.Hero:
+                                        {
 
-                                            if((element as Projekt.Postaci.Hero)!.isKnight)
+                                            if ((element as Projekt.Postaci.Hero)!.isKnight)
                                             {
-                                                <image href="/Images/characters/hero_knight__icon.png" width="auto" height="10vh" x="15%"  y="17%"/>
+                                                <image href="/Images/characters/hero_knight__icon.png" width="auto" height="10vh" x="15%" y="17%" />
                                             }
                                             else
                                             {
-                                                <image href="/Images/characters/hero_scout_icon.png" width="auto" height="10vh" x="15%"  y="17%" />
+                                                <image href="/Images/characters/hero_scout_icon.png" width="auto" height="10vh" x="15%" y="17%" />
                                             }
 
-                                             <style type="css">
+                                            <style type="css">
                                                 #id_@(x) > svg:hover
                                                 {
                                                     border:20px solid black;
                                                 }
-                                             </style>
-                                             break; 
-                                         } 
-                                    case Projekt.Postaci.Scout: 
-                                         {
-                                            <image href="/Images/characters/scout_head.png" width="auto" height="10vh" x="15%"  y="17%"/>
-                                            break; 
-                                         } 
-                                    case Projekt.Postaci.Knight: 
-                                         {
-                                            <image href="/Images/characters/knight_head.png" width="auto" height="10vh" x="15%"  y="17%"/>
-                                            break; 
-                                         }
+                                            </style>
+                                            break;
+                                        }
+                                    case Projekt.Postaci.Scout:
+                                        {
+                                            <image href="/Images/characters/scout_head.png" width="auto" height="10vh" x="15%" y="17%" />
+                                            break;
+                                        }
+                                    case Projekt.Postaci.Knight:
+                                        {
+                                            <image href="/Images/characters/knight_head.png" width="auto" height="10vh" x="15%" y="17%" />
+                                            break;
+                                        }
                                     case null:
-                                         { 
-                                             break; 
-                                         } 
+                                        {
+                                            break;
+                                        }
                                 }
                             }
 
@@ -144,7 +144,7 @@
 </div>
 
 
-@if(Model.EnemiesMove)
+@if (Model.EnemiesMove)
 {
     <script>
         const buttons = document.querySelectorAll('.trianglebutton');
@@ -152,7 +152,7 @@
         napis.style.visibility = 'visible';
 
         const baseText = "Tura przeciwnika";
-        
+
         napis.textContent = baseText + ".".repeat(@Model.EnemiesCounter%4);
 
         buttons.forEach(function(button) {
