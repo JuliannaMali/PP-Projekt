@@ -6,6 +6,39 @@
 <link rel="stylesheet" href="~/css/Controller.css" asp-append-version="true" />
 <link rel="stylesheet" href="~/css/MapView.css" asp-append-version="true" />
     
+<style type="text/css">
+
+    header {
+        background-color: rgb(141, 156, 171);
+    }
+
+    body {
+        background: linear-gradient(180deg, rgba(234, 218, 206, 0.1) 50%, rgba(234, 218, 206,0.1) 100%), url(../Images/backgrounds/field_background.jpg);
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        background-size: 100% 110%;
+    }
+
+    polygon#obramowka {
+        fill: rgb(164, 232, 223);
+        fill-opacity: 0.3;
+        stroke: black;
+        stroke-width: 3px;
+    }
+
+    .trianglebutton{
+        background-color: rgb(72, 101, 88);
+    }
+
+    div#mapa1 {
+        background-color: rgba(146, 189, 191, 0.2);
+    }
+
+    div#controller{
+        background-color: rgba(146, 189, 191, 0.2);
+    }
+</style>
+
 
 <div id="container">
 
@@ -58,7 +91,7 @@
     
         @for (int y = Model.Game1.Map.SizeY - 1; y >= 0; y--)
         {
-            double mnoz = y*17-198;
+            double mnoz = y*19.5-215;
             var actualmnoz = mnoz.ToString("0.0", System.Globalization.CultureInfo.InvariantCulture);
 
             <div id="rows" style="position:relative; top:@(actualmnoz)px;">
@@ -94,29 +127,22 @@
 
                                             if((element as Projekt.Postaci.Hero)!.isKnight)
                                             {
-                                                <image href="/Images/characters/hero_knight__icon.png" width="auto" height="10vh" x="15%"  y="17%"/>
+                                                <image href="/Images/characters/hero_knight__icon.png" width="auto" height="10vh" x="0%"  y="0%"/>
                                             }
                                             else
                                             {
-                                                <image href="/Images/characters/hero_scout_icon.png" width="auto" height="10vh" x="15%"  y="17%" />
+                                                <image href="/Images/characters/hero_scout_icon.png" width="auto" height="10vh" x="0%"  y="0%" />
                                             }
-
-                                             <style type="css">
-                                                #id_@(x) > svg:hover
-                                                {
-                                                    border:20px solid black;
-                                                }
-                                             </style>
                                              break; 
                                          } 
                                     case Projekt.Postaci.Scout: 
                                          {
-                                            <image href="/Images/characters/scout_head.png" width="auto" height="10vh" x="15%"  y="17%"/>
+                                            <image href="/Images/characters/scout_head.png" width="auto" height="10vh" x="0%"  y="0%"/>
                                             break; 
                                          } 
                                     case Projekt.Postaci.Knight: 
                                          {
-                                            <image href="/Images/characters/knight_head.png" width="auto" height="10vh" x="15%"  y="17%"/>
+                                            <image href="/Images/characters/knight_head.png" width="auto" height="10vh" x="0%"  y="0%"/>
                                             break; 
                                          }
                                     case null:

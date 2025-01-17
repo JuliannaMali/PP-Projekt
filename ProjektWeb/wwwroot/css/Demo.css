@@ -20,7 +20,6 @@ div#rows {
     display: flex;
     transform: scale(1.5);
     left: 25vw;
-    bottom: 20vh;
 }
 
 
@@ -39,7 +38,7 @@ div#mapa1 > div * {
 }
 
 div#rows:nth-child(odd) {
-    left: 26.75vw;
+    left: 28.75vw;
 
 }
 

@@ -30,8 +30,8 @@ public static class App
 
         Demo = new Game(
             new FiniteMap(5, 6),
-            new List<IMappable> { new Scout(5, 0.5), new Knight(1, 0), new Knight(5, 0.5), heros},
-            new List<Point> { new Point(null, null, 2, 2), new Point(null, null, 4, 2), new Point(3,2,null,null), new Point(0, 0, null, null)}
+            new List<IMappable> { heros, new Scout(5, 0.5), new Knight(1, 0), new Knight(5, 0.5)},
+            new List<Point> { new Point(0, 0, null, null), new Point(null, null, 2, 2), new Point(null, null, 4, 2), new Point(3,2,null,null)}
             );
 
     }

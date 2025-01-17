@@ -193,7 +193,6 @@
 #knightimg, #scoutimg {
     position: relative;
     display: inline-block;
-    background-color: #fff;
     border-radius: 5px;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
@@ -219,15 +218,14 @@
     border: 2px solid black;
     border-radius: 30px;
     right: 42%;
-    top: 60vh;
+    top: 70vh;
 }
 
-#game {
+#game, #demo {
     position: absolute;
     width: 15vw;
     height: 5vh;
-    right: 42%;
-    top: 70vh;
+    top: 80vh;
     font-size: 35px;
     border: 2px solid black;
     border-radius: 30px;
@@ -240,8 +238,16 @@
     transition: background-color 2s ease, color 2s ease, width 2s ease, height 2s ease, font-size 2s ease, bottom 2s ease;
 }
 
-#game:hover{
+#game:hover, #demo:hover{
     background-color: var(--link-color);
     color: var(--navbar-color);
     font-size: 40px;
+}
+
+#game{
+    right: 30%;
+}
+
+#demo{
+    right: 50%;
 }

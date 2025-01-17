@@ -85,7 +85,6 @@ div#container{
 div#controller {
     border: 2px solid black;
     border-radius: 30px;
-    background-color: rgba(126, 85, 53, 0.2);
     width: 40vh;
     height: 40vh;
     align-content: center;
@@ -128,7 +127,6 @@ form{
 }
 
 .trianglebutton {
-    background-color: var(--container-color);
     height: 7vh;
     width: 3.3vw;
     justify-content: center;
