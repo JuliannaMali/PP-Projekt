@@ -2,8 +2,8 @@
 @model ProjektWeb.Pages.WalkaModel
 @{
     Projekt.Postaci.Hero bohater = (Model.Game.Mappables[0] as Projekt.Postaci.Hero)!;
-    bohater.Fight_won(1200);
-    Projekt.Postaci.Knight przeciwnik = new Projekt.Postaci.Knight(1, 0.1);
+    bohater.Fight_won(0);
+    Projekt.Postaci.Character przeciwnik = (Model.Game.Mappables[1] as Projekt.Postaci.Character)!;
 
     var walka = Projekt.Ruch.Fight.FightStart(bohater, przeciwnik);
     var przebieg_walki = walka[1];
@@ -26,7 +26,14 @@
     <div class="container">
         <div id="hero">
             <div>
-                <img src="~/Images/characters/hero.png" id="hero_img"/>
+                @if(bohater.isKnight)
+                {
+                    <img src="~/Images/characters/hero_knight.png" id="hero_img"/>
+                }
+                else
+                {
+                    <img src="~/Images/characters/hero_scout.png" id="hero_img" />
+                }
                 <div class="expbar">
                     <span>@bohater.Exp_owned</span>
                     <span>/ @bohater.Exp_to_lvl_up</span>
@@ -34,7 +41,7 @@
                 <div class="hph hp">&nbsp;</div>
                 <div class="liczby"> 
                     <span id="actual_hero_hp">@((int)((List<object>)hero_info[1])[0] * 50)</span>
-                    <span>/ @((int)((List<object>)hero_info[1])[0] * 50)</span>
+                    <span>/ <span id="max_hero_hp">@((int)((List<object>)hero_info[1])[0] * 50)</span></span>
                 </div>
             </div>
             <div id="hero-info">
@@ -67,7 +74,7 @@
                 {
                     <img src="~/Images/characters/scout.png" id="enemy_img"/>
                 }
-                else
+                else if(przeciwnik is Projekt.Postaci.Knight)
                 {
                     if((przeciwnik as Projekt.Postaci.Knight)!.IsKing)
                     {
@@ -81,51 +88,56 @@
                 <div class="hpe hp">&nbsp;</div>
                 <div class="liczby">
                     <span id="actual_enemy_hp">@((int)((List<object>)enemy_info[1])[0] * 50)</span>
-                    <span>/ @((int)((List<object>)enemy_info[1])[0] * 50)</span>
+                    <span>/ <span id="max_enemy_hp">@((int)((List<object>)enemy_info[1])[0] * 50)</span></span>
                 </div>
             </div>
             <div id="hero-info">
                 @enemy_info[0]
                 <br />
                 Level: @(((List<object>)enemy_info[1])[0])<br />
-                Agility: @(((List<object>)enemy_info[1])[1])
+
+                @if (przeciwnik is Projekt.Postaci.Scout)
+                {
+                    <span>Agility: </span>
+                }
+                else if (przeciwnik is Projekt.Postaci.Knight)
+                {
+                    <span>Defense: </span>
+                }
+                @(((List<object>)enemy_info[1])[1])
             </div>
         </div>
     </div>
-    <button id="walka">Walcz!</button>
+    <button id="walka" style="visibility:hidden; position:absolute;">Walcz!</button>
     @{
         var x = Projekt.Ruch.Fight.FightStart(bohater, przeciwnik)[1];
-
     }
 
     @{
         foreach (KeyValuePair<int, Projekt.Ruch.TurnCourse> element in (Dictionary<int, Projekt.Ruch.TurnCourse>)x)
         {
             <log id="@element.Key" style="visibility:hidden; position:absolute">
-            @if(element.Value.curr_hero_hp > 0)
-            {
-                //cios bohatera
-                if(element.Value.hero_dmg > 0)
-                {
-                        <p id="linijka">Zadajesz <dmg>@element.Value.hero_dmg</dmg> obrażeń!</p>
-                }
-                else if(element.Value.hero_dmg == 0)
-                {
-                        <p id="linijka"><dmg>@przeciwnik.Info() uniknął Twojego ciosu!</dmg></p>
-                }
-            }
 
-            @if(element.Value.curr_enem_hp > 0)
-            {            
-                //cios przeciwnika
-                if (element.Value.enem_dmg > 0)
-                {
-                        <p id="linijka">@przeciwnik.Info() zadaje Ci <dmg>@element.Value.enem_dmg</dmg> obrażeń!</p>
-                }
-                else if (element.Value.enem_dmg == 0)
-                {
-                        <p id="linijka"><dodge>Unikasz ciosu przeciwnika!</dodge></p>
-                }
+            @{/*cios bohatera*/}
+
+            @if(element.Value.hero_dmg > 0)
+            {
+                    <p class="linijka_b">Zadajesz <dmg>@element.Value.hero_dmg</dmg> obrażeń!</p>
+            }
+            else if (element.Value.hero_dmg == 0)
+            {
+                    <p class="linijka_b dodge"><dmg>@przeciwnik.Info() uniknął Twojego ciosu!</dmg></p>
+            }
+        
+            @{/*cios przeciwnika*/}
+
+            @if (element.Value.enem_dmg > 0 && element.Value.curr_enem_hp > 0)
+            {
+                    <p class="linijka_p">@przeciwnik.Info() zadaje Ci <dmg>@element.Value.enem_dmg</dmg> obrażeń!</p>
+            }
+            else if (element.Value.enem_dmg == 0)
+            {
+                    <p class="linijka_p dodge"><dodge>Unikasz ciosu przeciwnika!</dodge></p>
             }
 
 
@@ -178,20 +190,37 @@
     const heroHPBar = document.querySelector('.hph');
     const enemyHPBar = document.querySelector('.hpe');
 
-        document.querySelectorAll('dmg').forEach(dmg => {
-        dmg.style.color = 'crimson';
-    });
-
     document.querySelector('#walka').addEventListener("click", async function() {
 
+        console.log(tury.length);
+        console.log();
         for (let i = 1; i < tury.length; i++) 
         {
-            let linijki = tury[i].querySelectorAll('#linijka');
+            console.log(i);
+            let linijki_bohatera = tury[i].querySelectorAll('.linijka_b');
+            let linijki_przeciwnika = tury[i].querySelectorAll('.linijka_p');
 
             //ruch bohatera
-            curr_enem_hp.innerHTML = after_hit_enem[i].innerHTML;
+            try
+            {
+                //heros żyje, atakuje
+                linijki_bohatera[0].innerHTML;
+                curr_enem_hp.innerHTML = after_hit_enem[i].innerHTML;
+                hero_image.style.animation = "heroAttack 1s cubic-bezier(0.25, 0.1, 0.25, 1)";
 
-            hero_image.style.animation = "heroAttack 1s cubic-bezier(0.25, 0.1, 0.25, 1)";
+                if(linijki_bohatera[0].classList.contains("dodge"))
+                {
+                    //unik
+                    enemy_image.style.animation = "enemyDodge 1s cubic-bezier(0.25, 0.1, 0.25, 1)";
+                }            
+            }
+            catch(error)
+            {
+                //heros nie żyje, albo przeciwnik zaczyna
+                console.log('pierwszy błąd bohatera - śmierć / zaczyna przeciwnik')
+            }
+            
+
 
             let enemyhpPercentage = ((Number(curr_enem_hp.textContent.replace(',', '.'))) / enemy_max_hp) * 100;
             enemyHPBar.style.width = enemyhpPercentage + '%';
@@ -200,23 +229,45 @@
 
             try
             {
-                logi.innerHTML += linijki[0].innerHTML + "<br />";
+                logi.innerHTML += linijki_bohatera[0].innerHTML + "<br />";
             } 
             catch (error)
             {
-                ;
+                console.log('drugi błąd bohatera - brak linijki bohatera');
             }
 
             await new Promise(resolve => setTimeout(resolve, 1100));
             hero_image.style.animation = "";
 
-            //ruch przeciwnika
 
-            curr_hero_hp.innerHTML = after_hit_hero[i].innerHTML;
+            //ruch przeciwnika
+            try
+            {
+                linijki_przeciwnika[0].innerHTML;
+                curr_hero_hp.innerHTML = after_hit_hero[i].innerHTML;
+            }
+            catch(error)
+            {
+                console.log('pierwszy błąd przeciwnika - brak linijek');
+            }
+
 
             if(Number(curr_enem_hp.textContent.replace(',', '.') > 0))
             {
                 enemy_image.style.animation = "enemyAttack 1s cubic-bezier(0.25, 0.1, 0.25, 1)";
+            }
+
+            try
+            {
+                if(linijki_przeciwnika[0].classList.contains("dodge"))
+                {
+                    //unik
+                    hero_image.style.animation = "heroDodge 1s cubic-bezier(0.25, 0.1, 0.25, 1)";
+                }
+            }
+            catch(error)
+            {
+                ;
             }
 
             let herohpPercentage = ((Number(curr_hero_hp.textContent.replace(',', '.'))) / hero_max_hp) * 100;
@@ -227,23 +278,31 @@
 
             try
             {
-                logi.innerHTML += linijki[1].innerHTML + "<br />";
+                logi.innerHTML += linijki_przeciwnika[0].innerHTML + "<br />";
             }
             catch (error)
             {
-                ;
+                console.log('drugi błąd przeciwnika');
             }
             await new Promise(resolve => setTimeout(resolve, 1100));
             enemy_image.style.animation = "";
+            console.log()
         }
+
         try
         {
             let exp = document.querySelector('#exp_z_walki').innerHTML;
             logi.innerHTML += exp;
+            enemy_image.style.animation = "defeat 1s ease forwards";
         }
         catch(error)
         {
-            ;
+            logi.innerHTML += "Przegrałeś!";
+            hero_image.style.animation = "defeat 1s ease forwards";
+            console.log('pierwszy błąd pasek expa');
         }
     });
+
+    setTimeout(
+        function() { document.querySelector('#walka').click()} , 500);
 </script>

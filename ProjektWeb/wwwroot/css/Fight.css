@@ -32,7 +32,7 @@
     }
 
     25% {
-        transform: translateX(50px);
+        transform: translateX(70px) rotate(5deg);
     }
 
     100% {
@@ -40,7 +40,28 @@
     }
 }
 
+@keyframes heroDodge {
+    0% {
+        transform: translateX(0);
+    }
 
+    25% {
+        transform: translateX(-70px) rotate(-5deg);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes defeat{
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
 
 content, body
 {
