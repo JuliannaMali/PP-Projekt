@@ -114,14 +114,8 @@
 
                                 var element = @Model.Game1.Map.At(punkt);
 
-                                                               switch(element as Projekt.Postaci.Character) 
-                                { 
-                                    @*
-                                    case ((element as Projekt.Postaci.Knight).IsKing ???)
-                                    {
-                                        <image href="/Images/characters/King_icon" width="auto" height="10vh" x="22%"  y="17%" clip-path="url(#clipPolygon3)"/>
-                                    }
-                                    *@
+                                switch(element as Projekt.Postaci.Character) 
+                                {
                                     case Projekt.Postaci.Hero: 
                                         { 
 
@@ -142,7 +136,14 @@
                                          } 
                                     case Projekt.Postaci.Knight: 
                                          {
-                                            <image href="/Images/characters/knight_head.png" width="auto" height="10vh" x="0%"  y="0%"/>
+                                            if ((element as Projekt.Postaci.Knight)!.IsKing)
+                                            {
+                                                <image href="/Images/characters/king.png" width="auto" height="10vh" x="0%" y="0%"/>
+                                            }
+                                            else
+                                            {
+                                                <image href="/Images/characters/knight.png" width="auto" height="10vh" x="0%" y="0%"/>
+                                            }
                                             break; 
                                          }
                                     case null:
