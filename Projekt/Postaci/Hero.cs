@@ -1,4 +1,5 @@
 ﻿using Projekt.Mapy;
+using System.Text.Json.Serialization;
 
 namespace Projekt.Postaci;
 
@@ -15,27 +16,33 @@ public class Hero : Character, IMappable
 
     public bool isKnight;
 
+    [JsonInclude]
+    private char Symbol;
+
     //Mthds
 
     public int Exp_to_lvl_up { get => exp_to_lvl_up; }
-    public int Exp_owned { get => exp_owned; }
-
-
+    public int Exp_owned { get => exp_owned; }     
     public Hero(char t)
     {
         if (t == 'K')
         {
+            Symbol = t;
             defense = 0.05;
             isKnight = true;
         }
         else
         {
+            Symbol = 't';
             agility = 0.06;
             isKnight = false;
         }
         lvl = 1;
         hp = lvl * 50;
     }
+
+    [JsonConstructor]
+    public Hero() { }
     public double Stat
     {
         get
@@ -45,7 +52,6 @@ public class Hero : Character, IMappable
             return agility;
         }
     }
-    char IMappable.Symbol => 'H';
     public override string Info() => $"{name}";
 
     public string Name

@@ -38,9 +38,7 @@
 
 .stickynote:hover > *{
     animation-play-state: paused;
-    cursor:pointer;
 }
-
 
 .nail {
     z-index: 10;
@@ -66,8 +64,6 @@
     transform-origin: 50% 5%;
 
     animation: wind 4s infinite;
-
-
 }
 
 
@@ -194,10 +190,6 @@ form{
     transform: scale(0.95);
 }
 
-#knight:hover, #scout:hover{
-    cursor:pointer;
-}
-
 #knightimg, #scoutimg {
     position: relative;
     display: inline-block;
@@ -244,7 +236,7 @@ form{
     z-index: 10000;
     opacity: 0;
     visibility: hidden;
-    transition: background-color 2s ease, color 2s ease, transform 2s ease-in-out;
+    transition: background-color 0.4s ease, color 0.4s ease, transform 0.4s ease-in-out;
 }
 
 #game:hover, #demo:hover{

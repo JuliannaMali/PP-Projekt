@@ -1,4 +1,5 @@
 ﻿using Projekt.Mapy;
+using System.Text.Json.Serialization;
 
 namespace Projekt.Postaci;
 
@@ -24,6 +25,8 @@ public class Knight : Character, IMappable
     {
         get => isKing;
     }
-    char IMappable.Symbol => 'K';
     public override string Info() => "Wrogi rycerz";
+
+    [JsonConstructor]
+    public Knight() { } 
 }

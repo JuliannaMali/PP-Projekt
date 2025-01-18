@@ -20,6 +20,10 @@ body {
     margin: 0;
 }
 
+body, *{
+    cursor: url('../Images/miecz.png'), auto;
+}
+
 header {
     justify-items: center;
     padding: 5px;

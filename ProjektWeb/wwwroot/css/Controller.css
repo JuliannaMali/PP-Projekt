@@ -131,7 +131,6 @@ form{
     width: 3.3vw;
     justify-content: center;
     clip-path: polygon(50% 0%, 100% 100%, 50% 85%, 0% 100%);
-    cursor: pointer;
     position: relative;
 
     transition: transform 0.3s ease-in-out;

@@ -1,4 +1,5 @@
 ﻿using Projekt.Mapy;
+using System.Text.Json.Serialization;
 
 namespace Projekt.Postaci;
 
@@ -22,6 +23,8 @@ public class Scout : Character, IMappable
             agility = Agility;
         }
     }
-    char IMappable.Symbol => 'S';
     public override string Info() => "Wrogi zwiadowca";
+
+    [JsonConstructor]
+    public Scout() { }
 }

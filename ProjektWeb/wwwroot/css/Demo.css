@@ -53,7 +53,6 @@ div#rows:nth-child(odd) {
 
 .pic:hover {
     border: 2px solid red;
-    cursor: pointer;
 }
 
 .lvl {
@@ -61,8 +60,4 @@ div#rows:nth-child(odd) {
     position: relative;
     bottom: 10vh;
     left: 2.3vw;
-}
-
-.lvl:hover {
-    cursor: pointer;
 }
