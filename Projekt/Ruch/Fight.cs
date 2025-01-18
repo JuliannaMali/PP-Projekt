@@ -18,7 +18,7 @@ public static class Fight
 
         if(enemy is Knight)
         {
-            enemy_stat = (enemy as Knight).Defense;
+            enemy_stat = (enemy as Knight)!.Defense;
             unik_e = false;
 
             if(hero.isKnight)
@@ -39,7 +39,7 @@ public static class Fight
         }
         else 
         {
-            enemy_stat = (enemy as Scout).Agility;
+            enemy_stat = (enemy as Scout)!.Agility;
             unik_e = true;
 
             if (hero.isKnight)
@@ -59,7 +59,7 @@ public static class Fight
             }
         }
         tablica[0] = new WhoIsFighting(hero, enemy);
-        tablica[1] = DamageDealt(hero_is_first, hero.Level, hero.Stat, unik_h, enemy.Level, enemy_stat, unik_e, enemy.Info());
+        tablica[1] = DamageDealt(hero_is_first, hero.Level, hero.Stat, unik_h, enemy.Level, enemy_stat, unik_e);
 
         return tablica;
     }
@@ -91,16 +91,15 @@ public static class Fight
     public static Dictionary<int, TurnCourse> DamageDealt(
         bool hero_moves_first, 
         int h_lvl, double h_stat, bool h_dodge, 
-        int e_lvl, double e_stat, bool e_dodge, string who)
+        int e_lvl, double e_stat, bool e_dodge)
     {
         Random autoRand = new Random();
-        int counter = 0;
+        int counter = -1;
 
         double h_hp = h_lvl * 50;
         double e_hp = e_lvl * 50;
 
         Dictionary<int, TurnCourse> dict = new();
-        dict[counter] = new TurnCourse(-1, -1, h_hp, e_hp);
 
         while(true)
         {
@@ -170,7 +169,10 @@ public static class Fight
                 //Console.WriteLine($"{who} zadaje Ci {enemy_dmg} obrażeń!");
             }
 
-            dict[counter] = new TurnCourse(hero_dmg, enemy_dmg, dict[counter-1].curr_hero_hp - enemy_dmg, dict[counter-1].curr_enem_hp - (hero_dmg < 0 ? 0 : hero_dmg));
+            dict[counter] = new TurnCourse(
+                hero_dmg, enemy_dmg, 
+                counter == 0 ? h_lvl * 50 : dict[counter-1].curr_hero_hp - enemy_dmg, 
+                counter == 0 ? e_lvl * 50 : dict[counter-1].curr_enem_hp - (hero_dmg < 0 ? 0 : hero_dmg));
 
             if (dict[counter].curr_hero_hp <= 0 || dict[counter].curr_enem_hp <= 0)
                 break;

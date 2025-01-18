@@ -25,7 +25,7 @@ namespace ProjektWeb.Pages
             {
                 Game2.EnemiesTurn(EnemiesCounter);
                 EnemiesCounter++;
-                Thread.Sleep(300 + Game2.Mappables.Count * 20);
+                Thread.Sleep(50 + Game2.Mappables.Count * 20);
             }
             else
             {

@@ -1,16 +1,50 @@
-﻿content, body
+﻿@keyframes heroAttack {
+    0% {
+        transform: translateX(0) rotate(0deg);
+    }
+
+    25% {
+        transform: translateX(200px) rotate(10deg); 
+    }
+
+    100% {
+        transform: translateX(0) rotate(0deg);
+    }
+}
+
+@keyframes enemyAttack {
+    0% {
+        transform: translateX(0) rotate(0deg);
+    }
+
+    25% {
+        transform: translateX(-200px) rotate(-10deg);
+    }
+
+    100% {
+        transform: translateX(0) rotate(0deg);
+    }
+}
+
+@keyframes enemyDodge {
+    0% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(50px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+
+
+content, body
 {
     background-color: gray;
-}
-
-content div, img
-{
-/*    border: 2px dashed green;*/
-}
-
-span
-{
-/*    border: 2px dotted black;*/
 }
 
 div#log-area {
@@ -21,8 +55,11 @@ div#log-area {
     scrollbar-color: gray black;
     scrollbar-width: thin;
 
+    font-size: 18px;
     text-align: justify;
     line-height: 30px;
+
+    padding: 10px -10px 0px 10px;
 }
 
 div.container {
@@ -74,10 +111,9 @@ div.expbar
     position: relative;
 }
 
-.hp 
-{
+.hp {
     height: 100%;
-    background-color: green;
+    background-color: #00b300;
     width: 100%;
     transition: width 0.5s ease;
 }
@@ -92,4 +128,12 @@ div.expbar span {
 {
     position:relative;
     top:-70px;
+}
+
+dmg{
+    color: crimson;
+}
+
+dodge{
+    color: forestgreen;
 }
