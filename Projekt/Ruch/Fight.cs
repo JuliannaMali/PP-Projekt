@@ -78,16 +78,6 @@ public static class Fight
         return false;
     }
 
-    public static void Status(double hero_hp, int max_hero, double enemy_hp, int max_enemy)
-    {
-        Console.WriteLine();
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.WriteLine($"Twoje HP: {Math.Round(hero_hp, 2)}/{max_hero}");
-        Console.WriteLine($"Przeciwnika HP: {Math.Round(enemy_hp, 2)}/{max_enemy}");
-        Console.ResetColor();
-        Thread.Sleep(1500);
-    }
-
     public static Dictionary<int, TurnCourse> DamageDealt(
         bool hero_moves_first, 
         int h_lvl, double h_stat, bool h_dodge, 
