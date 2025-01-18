@@ -61,6 +61,10 @@ function pojawienie() {
     document.querySelector("#game").style.transition = 'opacity 2s ease-in, visibility 0.01s ease-in';
     document.querySelector("#game").style.visibility = 'visible';
 
+    document.querySelector("#demo").style.opacity = '1';
+    document.querySelector("#demo").style.transition = 'opacity 2s ease-in, visibility 0.01s ease-in';
+    document.querySelector("#demo").style.visibility = 'visible';
+
     document.querySelector('#namehero').style.opacity = '1';
     document.querySelector('#namehero').style.transition = 'opacity 2s ease-in, visibility 0.05s ease-in';
     document.querySelector('#namehero').style.visibility = 'visible';

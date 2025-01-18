@@ -22,7 +22,6 @@ body {
 
 header {
     justify-items: center;
-    background-color: var(--navbar-color);
     padding: 5px;
 }
 

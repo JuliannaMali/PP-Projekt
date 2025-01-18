@@ -1,48 +1,54 @@
-﻿:root{
+﻿:root {
     --polygon-color: #BE8D67;
 }
 
-div#mapa1, div#mapa2 {
+
+div#mapa1 {
     margin-left: 5%;
     width: 59vw;
     height: 80vh;
+    background-color: rgba(126, 85, 53, 0.2);
     padding: 10px 100px 10px 40px;
     border: 2px solid black;
     border-radius: 40px;
     margin-top: 1.75%;
+    border: 2px solid black;
 }
-
 
 
 div#rows {
     display: flex;
+    transform: scale(1.5);
+    left: 25vw;
 }
 
+
+svg > defs > clipPath > polygon {
+    stroke: blue;
+    stroke-width: 3;
+}
+
+svg > *{
+    border: 2px solid blue;
+}
 
 div#mapa1 > div * {
-    height: 7vh;
+    height: 10vh;
     width: auto;
-
-}
-div#mapa2 > div * {
-    height: 7vh;
-    width: auto;
-
 }
 
 div#rows:nth-child(odd) {
-    left: 1.75vw;
+    left: 28.75vw;
+
 }
 
 svg > image {
     height: 10vh;
-    transform: scale(1.4);
 }
 
-/*polygon#obramowka {
+
+polygon#obramowka {
     fill: var(--polygon-color);
-    fill-opacity: 0.6;
     stroke: black;
     stroke-width: 3px;
 }
-*/
