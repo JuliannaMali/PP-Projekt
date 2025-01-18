@@ -1,9 +1,9 @@
 ﻿@page
 @model ProjektWeb.Pages.WalkaModel
 @{
-    Projekt.Postaci.Hero bohater = (Model.Game.Mappables[0] as Projekt.Postaci.Hero)!;
-    bohater.Fight_won(0);
-    Projekt.Postaci.Character przeciwnik = (Model.Game.Mappables[1] as Projekt.Postaci.Character)!;
+    Projekt.Postaci.Hero bohater = Model.Hero;
+    Projekt.Postaci.Character przeciwnik = Model.Enemy;
+    bohater.Fight_won(9000);
 
     var walka = Projekt.Ruch.Fight.FightStart(bohater, przeciwnik);
     var przebieg_walki = walka[1];
@@ -22,7 +22,25 @@
 
 <link rel="stylesheet" href="~/css/Fight.css" asp-append-version="true" />
 
-<content>
+<style type="text/css">
+    @*wersja 2
+    body {
+        background: linear-gradient(180deg, rgba(234, 218, 206, 0.1) 50%, rgba(234, 218, 206,0.1) 100%), url(../Images/backgrounds/fight2_background.jpg);
+        background-repeat: no-repeat;
+        background-size: 100% 120%;
+    }
+    *@
+
+    body{
+        background: linear-gradient(180deg, rgba(234, 218, 206, 0.1) 50%, rgba(234, 218, 206,0.1) 100%), url(../Images/backgrounds/fight1_background.jpg);
+        background-repeat: no-repeat;
+        background-size: 100% 120%;
+    }
+    
+
+</style>
+
+<content id="content">
     <div class="container">
         <div id="hero">
             <div>
@@ -47,14 +65,14 @@
             <div id="hero-info">
                 @hero_info[0]
                 <br />
-                Level: @(((List<object>)hero_info[1])[0])<br />
+                <span id="herolvl">Level: @(((List<object>)hero_info[1])[0])</span><br />
                 @if(bohater.isKnight)
                 {
-                    <span>Defense: @(((List<object>)hero_info[1])[1])</span>
+                    <span id="herostats">Defense: @(((List<object>)hero_info[1])[1])</span>
                 }
                 else
                 {
-                    <span>Agility: @(((List<object>)hero_info[1])[1])</span>
+                    <span id="herostats">Agility: @(((List<object>)hero_info[1])[1])</span>
                 }                    
             </div>
         </div>
@@ -64,7 +82,7 @@
             </div>
             <div>
                 <form method="post" asp-page-handler="Enemies">
-                    <button type="submit" id="ruchy2" style="visibility:visible;display:inline">NIE KLIKAJ</button>
+                    <button type="submit" id="powrot" style="visibility:hidden;display:inline">Powrót</button>
                 </form>
             </div>
         </div>
@@ -108,7 +126,12 @@
             </div>
         </div>
     </div>
-    <button id="walka" style="visibility:hidden; position:absolute;">Walcz!</button>
+    <div id="scroll">
+        <img src="~/Images/backgrounds/old-paper.png" />
+    </div>
+
+
+    <button id="walka" style="visibility:hidden; position:relative; bottom:100vh;">Walcz!</button>
     @{
         var x = Projekt.Ruch.Fight.FightStart(bohater, przeciwnik)[1];
     }
@@ -116,7 +139,7 @@
     @{
         foreach (KeyValuePair<int, Projekt.Ruch.TurnCourse> element in (Dictionary<int, Projekt.Ruch.TurnCourse>)x)
         {
-            <log id="@element.Key" style="visibility:hidden; position:absolute">
+            <log id="@element.Key" style="visibility:hidden; position:absolute; ">
 
             @{/*cios bohatera*/}
 
@@ -156,9 +179,9 @@
             {
                 //wygrana walka
                 double exp = przeciwnik.Level * 15;
-                bohater.Fight_won((int)(((Dictionary<int, Projekt.Ruch.TurnCourse>)x)[1].curr_hero_hp / 50) * 15);
+                bohater.Fight_won((int) exp);
                 <p id="enemy_hp" style="visibility:hidden; position: absolute;">0</p>
-                    <p id="exp_z_walki">Wygrywasz i zdobywasz <span style="color:goldenrod">@exp pkt</span> doświadczenia!</p>
+                    <p id="exp_z_walki">Wygrywasz i zdobywasz <span style="color:rgb(242, 222, 168); text-shadow: 0px 0px 4px #000">@exp pkt</span> doświadczenia!</p>
             }
             else
             {
@@ -291,18 +314,42 @@
 
         try
         {
-            let exp = document.querySelector('#exp_z_walki').innerHTML;
-            logi.innerHTML += exp;
-            enemy_image.style.animation = "defeat 1s ease forwards";
+            if(przeciwnik is Projekt.Postaci.Knight)
+            {
+                if((przeciwnik as Projekt.Postaci.Knight)!.IsKing)
+                { 
+                    setTimeout(
+                            function() {window.location.href = '/Win'}, 2000)
+
+                else
+                {
+                    let exp = document.querySelector('#exp_z_walki').innerHTML;
+                    logi.innerHTML += exp;
+                    enemy_image.style.animation = "defeat 1s ease forwards";
+
+                    setTimeout(
+                    function() {document.querySelector("#powrot").style.visibility = "visible";}, 1000)
+
+                }
+            }
         }
         catch(error)
         {
             logi.innerHTML += "Przegrałeś!";
             hero_image.style.animation = "defeat 1s ease forwards";
             console.log('pierwszy błąd pasek expa');
+
+            setTimeout(
+            function() {window.location.href = '/Loss'}, 2000)
         }
+
+
     });
 
     setTimeout(
         function() { document.querySelector('#walka').click()} , 500);
+
+
+
+
 </script>
