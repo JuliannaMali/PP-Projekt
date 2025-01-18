@@ -13,9 +13,8 @@
 
     body {
         background: linear-gradient(180deg, rgba(234, 218, 206, 0.1) 50%, rgba(234, 218, 206,0.1) 100%), url(../Images/backgrounds/castle_backgroundv2.png);
-        background-size: 100% 100%;
         background-repeat: no-repeat;
-        background-size: 100% 110%;
+        background-size: 110% 110%; 
     }
 
     polygon#obramowka {
@@ -97,14 +96,14 @@
 
     <div id="mapa1">
 
-        @for (int y = Model.demo.Map.SizeY - 1; y >= 0; y--)
+        @for (int y = Model.DemoGame.Map.SizeY - 1; y >= 0; y--)
         {
             double mnoz = @y*(-7.5) +120; 
             @*y * 5 - 198;*@
             var actualmnoz = mnoz.ToString("0.0", System.Globalization.CultureInfo.InvariantCulture);
 
             <div id="rows" style="position:relative; top: @(actualmnoz)px;">
-                @for (int x = 0; x < Model.demo.Map.SizeX; x++)
+                @for (int x = 0; x < Model.DemoGame.Map.SizeX; x++)
                 {
                     <div id="id_@x">
 
@@ -122,7 +121,7 @@
 
                                 punkt = y % 2 == 0 ? new Projekt.Point(x, y / 2, null, null) : new Projekt.Point(null, null, x, y / 2);
 
-                                var element = @Model.demo.Map.At(punkt);
+                                var element = @Model.DemoGame.Map.At(punkt);
 
                                 switch (element as Projekt.Postaci.Character)
                                 {

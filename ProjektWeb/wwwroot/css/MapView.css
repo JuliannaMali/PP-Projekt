@@ -42,7 +42,6 @@ div#rows:nth-child(odd) {
 
 .pic:hover{
     border: 2px solid red;
-    cursor: pointer;
 }
 
 .lvl{
@@ -50,8 +49,4 @@ div#rows:nth-child(odd) {
     position: relative;
     bottom: 9vh;
     left: 1.5vw;
-}
-
-.lvl:hover{
-    cursor: pointer;
 }

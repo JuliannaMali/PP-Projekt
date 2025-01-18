@@ -10,13 +10,11 @@
     header {
         background-color: rgb(115, 71, 43);
     }
-
 </style>
 
 
 <div id="bg1">
     <div id="top">
-
         <div class="stickynote bigger" id="s1">
             <div class="nail bigger"></div>
             <div class="note bigger">
@@ -26,7 +24,6 @@
                 </div>
             </div>
         </div>
-
         <div class="stickynote" id="s2">
             <div class="nail"></div>
             <div class="note">
@@ -36,7 +33,6 @@
                 </div>
             </div>
         </div>
-
         <div class="stickynote bigger" id="s3">
             <div class="nail2 bigger"></div>
             <div class="note2 bigger">
@@ -46,9 +42,7 @@
                 </div>
             </div>
         </div>
-
     </div>
-
     <div id="bottom">
         <div class="stickynote" id="s4">
             <div class="nail"></div>
@@ -59,7 +53,6 @@
                 </div>
             </div>
         </div>
-
         <div class="stickynote smaller" id="s5">
             <div class="nail2 smaller"></div>
             <div class="note2 smaller">
@@ -69,7 +62,6 @@
                 </div>
             </div>
         </div>
-
         <div class="stickynote" id="s6">
             <div class="nail2"></div>
             <div class="note2">
@@ -79,7 +71,6 @@
                 </div>
             </div>
         </div>
-
         <div class="stickynote" id="s7">
             <div class="nail2"></div>
             <div class="note2">
@@ -88,35 +79,28 @@
                     <p class="info">Aby wygrać grę należy pokonać Króla pojawiającego się na drugim poziomie.<br />Jeśli gracz przegra którąkolwiek z walk gra się kończy.</p>
                 </div>
             </div>
-        </div>
-    
+        </div>    
     </div>
 
-    <form method="post" asp-page-handler="Data">
+    <form method="post">
         <div id="hero" >
             <div id="knight">
                 <img id="knightimg" src="~/Images/characters/knight.png" />
-                <input id="knightcheck" type="radio" name="herochoice" style="visibility: hidden"/>
+                <input id="knightcheck" type="radio" name="herochoice" value="K" style="visibility: hidden"/>
             </div>
             
             <div id="scout">
                 <img id="scoutimg" src="~/Images/characters/scout.png" />
-                <input id="scoutcheck" type="radio" name="herochoice" style="visibility: hidden"/>
+                <input id="scoutcheck" type="radio" name="herochoice" value="S" style="visibility: hidden"/>
             </div>
         </div>
 
-        <input id="namehero" type="text" placeholder="" required/>
+        <input id="namehero" type="text" placeholder="" autocomplete="off" required name="heroname" />
     
-
-        <input type="submit" asp-area="" asp-page="Map1" id="game" value="Graj"/>
+        <button type="submit" asp-area="" asp-page="Map1" id="game">Graj</button>
         <input type="submit" asp-area="" asp-page="Demo" id="demo" value="Graj Demo">
-
     </form>
-
-
-
 </div>
-
 
 
 <footer>

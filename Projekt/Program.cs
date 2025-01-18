@@ -56,7 +56,6 @@ public class Program
 
 
             Console.ResetColor();
-            //Console.Write($"{mapp[i].Symbol}: {mapp[i]} - {pos[i]} - ");
         }
 
 
