@@ -89,8 +89,10 @@
                 </div>
             </div>
         </div>
-        
+    
+    </div>
 
+    <form method="post" asp-page-handler="Data">
         <div id="hero" >
             <div id="knight">
                 <img id="knightimg" src="~/Images/characters/knight.png" />
@@ -103,14 +105,14 @@
             </div>
         </div>
 
-
-
-    </div>
-
-    <input id="namehero" type="text" placeholder="" required/>
+        <input id="namehero" type="text" placeholder="" required/>
     
-    <a asp-area="" asp-page="Map1" id="game"></a>
-    <a asp-area="" asp-page="Demo" id="demo">Graj Demo</a>
+
+        <input type="submit" asp-area="" asp-page="Map1" id="game" value="Graj"/>
+        <input type="submit" asp-area="" asp-page="Demo" id="demo" value="Graj Demo">
+
+    </form>
+
 
 
 </div>

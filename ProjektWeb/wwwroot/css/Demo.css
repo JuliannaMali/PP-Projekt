@@ -19,7 +19,8 @@ div#mapa1 {
 div#rows {
     display: flex;
     transform: scale(1.5);
-    left: 25vw;
+    left: 20vw;
+    width: 30vw;
 }
 
 
@@ -38,17 +39,30 @@ div#mapa1 > div * {
 }
 
 div#rows:nth-child(odd) {
-    left: 28.75vw;
+    left: 23.75vw;
 
 }
 
-svg > image {
+#heropic{
+}
+
+.pic {
     height: 10vh;
+    z-index: 1000;
 }
 
+.pic:hover {
+    border: 2px solid red;
+    cursor: pointer;
+}
 
-polygon#obramowka {
-    fill: var(--polygon-color);
-    stroke: black;
-    stroke-width: 3px;
+.lvl {
+    font-size: 30px;
+    position: relative;
+    bottom: 10vh;
+    left: 2.3vw;
+}
+
+.lvl:hover {
+    cursor: pointer;
 }

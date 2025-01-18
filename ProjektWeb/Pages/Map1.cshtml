@@ -66,9 +66,14 @@
 
                 <polygon points="49.9,1.4   100,28.375  100,73.15   49.9,100.125  0,73.15  0,28.375" id="obramowka" />
 
-                @*
-                <image href="/Images/hexagon-long-diagonals.png" width="100px" height="100px" x="" y="3%" clip-path="url(#clipPolygon3)" />
-                *@
+                @if ((App.Demo.Mappables[0] as Projekt.Postaci.Hero)!.isKnight)
+                {
+                    <image id="heropic" href="/Images/characters/hero_knight_icon.png" width="5vw" height="10vh" x="0%" y="5%" />
+                }
+                else
+                {
+                    <image id="heropic" href="/Images/characters/hero_scout_icon.png" width="5vw" height="10vh" x="0%" y="-5%" />
+                }
             </svg>
 
             <form method="post" asp-page-handler="Right">
@@ -114,42 +119,57 @@
 
                                 var element = @Model.Game1.Map.At(punkt);
 
-                                switch(element as Projekt.Postaci.Character) 
+                                switch (element as Projekt.Postaci.Character)
                                 {
-                                    case Projekt.Postaci.Hero: 
-                                        { 
+                                    case Projekt.Postaci.Hero:
+                                        {
 
-                                            if((element as Projekt.Postaci.Hero)!.isKnight)
+                                            if ((element as Projekt.Postaci.Hero)!.isKnight)
                                             {
-                                                <image href="/Images/characters/hero_knight__icon.png" width="auto" height="10vh" x="0%"  y="0%"/>
+                                                <image class="pic" id="pic@(y)@(x)" href="/Images/characters/hero_knight_icon.png" width="auto" height="10vh" x="0%" y="5%" />
+                                                <div class="lvl" id="lvl@(y)@(x)" style="visibility: hidden">
+                                                    <p>@((element as Projekt.Postaci.Character)!.Level)</p>
+                                                </div>
                                             }
                                             else
                                             {
-                                                <image href="/Images/characters/hero_scout_icon.png" width="auto" height="10vh" x="0%"  y="0%" />
+                                                <image class="pic" id="pic@(y)@(x)" href="/Images/characters/hero_scout_icon.png" width="auto" height="10vh" x="0%" y="0%" />
+                                                <div class="lvl" id="lvl@(y)@(x)" style="visibility: hidden">
+                                                    <p>@((element as Projekt.Postaci.Character)!.Level)</p>
+                                                </div>
                                             }
-                                             break; 
-                                         } 
-                                    case Projekt.Postaci.Scout: 
-                                         {
-                                            <image href="/Images/characters/scout_head.png" width="auto" height="10vh" x="0%"  y="0%"/>
-                                            break; 
-                                         } 
-                                    case Projekt.Postaci.Knight: 
-                                         {
+                                            break;
+                                        }
+                                    case Projekt.Postaci.Scout:
+                                        {
+                                            <image class="pic" id="pic@(y)@(x)" href="/Images/characters/scout_head.png" width="auto" height="10vh" x="0%" y="0%" />
+                                            <div class="lvl" id="lvl@(y)@(x)" style="visibility: hidden">
+                                                <p>@((element as Projekt.Postaci.Character)!.Level)</p>
+                                            </div>
+                                            break;
+                                        }
+                                    case Projekt.Postaci.Knight:
+                                        {
                                             if ((element as Projekt.Postaci.Knight)!.IsKing)
                                             {
-                                                <image href="/Images/characters/king.png" width="auto" height="10vh" x="0%" y="0%"/>
+                                                <image class="pic" id="pic@(y)@(x)" href="/Images/characters/king.png" width="auto" height="10vh" x="0%" y="0%" />
+                                                <div class="lvl" id="lvl@(y)@(x)" style="visibility: hidden">
+                                                    <p>@((element as Projekt.Postaci.Character)!.Level)</p>
+                                                </div>
                                             }
                                             else
                                             {
-                                                <image href="/Images/characters/knight_head.png" width="auto" height="10vh" x="0%" y="0%"/>
+                                                <image class="pic" id="pic@(y)@(x)" href="/Images/characters/knight_head.png" width="auto" height="10vh" x="0%" y="0%" />
+                                                <div class="lvl" id="lvl@(y)@(x)" style="visibility: hidden">
+                                                    <p>@((element as Projekt.Postaci.Character)!.Level)</p>
+                                                </div>
                                             }
-                                            break; 
-                                         }
+                                            break;
+                                        }
                                     case null:
-                                         { 
-                                             break; 
-                                         } 
+                                        {
+                                            break;
+                                        }
                                 }
                             }
                         </svg>

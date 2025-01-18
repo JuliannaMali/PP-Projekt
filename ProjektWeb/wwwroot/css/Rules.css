@@ -169,6 +169,10 @@
 }
 
 
+form{
+    height: 10vh;
+}
+
 #hero{
     display: flex;
     position: relative;
@@ -184,6 +188,10 @@
     align-content: center;
     text-align: center;
     margin: 5%;
+    position: relative;
+    left: 65vw;
+    bottom: 22vh;
+    transform: scale(0.95);
 }
 
 #knight:hover, #scout:hover{
@@ -226,6 +234,8 @@
     width: 15vw;
     height: 5vh;
     top: 80vh;
+    font-family: 'EnchantedLand', sans-serif;
+    color: var(--link-color);
     font-size: 35px;
     border: 2px solid black;
     border-radius: 30px;
@@ -233,15 +243,14 @@
     background-color: var(--navbar-color);
     z-index: 10000;
     opacity: 0;
-    align-content: center;
     visibility: hidden;
-    transition: background-color 2s ease, color 2s ease, width 2s ease, height 2s ease, font-size 2s ease, bottom 2s ease;
+    transition: background-color 2s ease, color 2s ease, transform 2s ease-in-out;
 }
 
 #game:hover, #demo:hover{
     background-color: var(--link-color);
     color: var(--navbar-color);
-    font-size: 40px;
+    transform: scale(1.2);
 }
 
 #game{

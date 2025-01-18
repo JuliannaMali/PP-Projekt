@@ -6,7 +6,7 @@
     document.getElementById('scoutimg').style = 'box-shadow: 0px 00px 24px 16px rgb(0, 204, 102)';
     document.getElementById('knightimg').style = 'box-shadow: 0px 00px 24px -100px rgb(153, 255, 204)';
 
-    document.querySelector('#game').innerHTML = 'Graj Zwiadowcą!';
+    document.querySelector('#game').attributes[4].value = 'Graj Zwiadowcą!';
 
     document.querySelector('#namehero').attributes[2].value = 'Podaj imię swojego zwiadowcy'
 })

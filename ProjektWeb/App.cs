@@ -7,6 +7,7 @@ namespace ProjektWeb;
 
 public static class App
 {
+    public static Hero Heros { get; set; };
     public static readonly Game Game1;
     public static readonly Game Game2;
     public static readonly Game Demo;
@@ -29,8 +30,8 @@ public static class App
             );
 
         Demo = new Game(
-            new FiniteMap(5, 6),
-            new List<IMappable> { heros, new Scout(5, 0.5), new Knight(1, 0), new Knight(5, 0.5)},
+            new InfiniteMap(5, 6),
+            new List<IMappable> { heros, new Scout(5, 0.5), new Knight(1, 0, true), new Knight(5, 0.5)},
             new List<Point> { new Point(0, 0, null, null), new Point(null, null, 2, 2), new Point(null, null, 4, 2), new Point(3,2,null,null)}
             );
 
