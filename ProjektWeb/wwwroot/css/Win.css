@@ -1,0 +1,45 @@
+﻿header {
+    background: darkgoldenrod;
+}
+
+body {
+    background: url(../Images/backgrounds/win-background.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#container{
+    display: flex;
+    width: auto;
+    height: auto;
+}
+
+#confetti1{
+    width: 33%;
+    height: 89vh;
+}
+
+#text {
+    width: 35%;
+    height: 89vh;
+    text-align: center;
+    align-content: center;
+    font-size: 50px;
+    color: goldenrod;
+    text-shadow: 0px 0px 20px darkgoldenrod;
+    padding: 10px 10px 0px 10px;
+}
+
+#win{
+    position: relative;
+    bottom: 2vh;
+}
+
+#confetti2{
+    width: 34%;
+    height: 89vh;
+}
+img{
+    height: 100%;
+    width: 100%
+}

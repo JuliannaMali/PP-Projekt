@@ -2,22 +2,21 @@
 @model ProjektWeb.Pages.WinModel
 @{
 }
-<style type="text/css">
-    header{
-        background: darkgoldenrod;
-    }
-    body{
-        background: url(../Images/backgrounds/confettiv2.gif);
 
-    }
-    h1{
-        position: relative;
-        font-size: 60px;
-        top: 15vh;
-        left: 41.5vw;
-        width: 10px;
-    }
-</style>
+<link rel="stylesheet" href="/css/Win.css" asp-append-version="true" />
 
-<h1>Gratulacje @Model.WinnerName!</h1>
-<h1>Wygrałeś Grę!</h1>
+
+<div id="container">
+    <div id="confetti1">
+        <img src="~/Images/backgrounds/confettiv2.gif"/>
+    </div>
+    <div id="text">
+
+        <h1>Gratulacje<br />@Model.WinnerName!</h1>
+        <h1 id="win">Wygrałeś Grę!</h1>
+
+    </div>
+    <div id="confetti2">
+        <img src="~/Images/backgrounds/confettiv2.gif"/>
+    </div>
+</div>
