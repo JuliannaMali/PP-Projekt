@@ -5,8 +5,12 @@ namespace ProjektWeb.Pages
 {
     public class WinModel : PageModel
     {
-        public void OnGet()
+        [BindProperty]
+        public string? WinnerName { get; set; }
+
+        public void OnPost()
         {
+
         }
     }
 }
