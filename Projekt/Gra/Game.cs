@@ -7,7 +7,6 @@ using System;
 public class Game
 {
     //Attrbs
-    private int counter;
     public Map Map;
     public List<IMappable> Mappables;
     public List<Point> Positions;
@@ -17,8 +16,6 @@ public class Game
     //Mthds
     public Game(Map mapa, List<IMappable> mappables, List<Point> positions)
     {
-        counter = mappables.Count - 1;
-
         Map = mapa;
         Mappables = mappables;
         Positions = positions;
@@ -30,7 +27,7 @@ public class Game
         }
         else
         {
-            for (int i = 0; i < counter + 1; i++)
+            for (int i = 0; i < mappables.Count; i++)
             {
                 Map.Add(Mappables[i], Positions[i]);
             }
@@ -39,31 +36,16 @@ public class Game
 
     public void HeroTurn(Direction herodir)
     {
-        if (counter == 0)
+        Point punkt = (Mappables[0] as Hero)!.Position;
+
+        if ((Map.At(punkt.Next(herodir)) is Scout ||
+                Map.At(punkt.Next(herodir)) is Knight))
         {
-            //Mapa bez wrogów
-            if (Map is FiniteMap)
-            {
-                //Mapa 1
-            }
-            else
-            {
-                //Mapa 2
-            }
+            throw new FightException();
         }
         else
         {
-            Point punkt = (Mappables[0] as Hero)!.Position;
-
-            if ((Map.At(punkt.Next(herodir)) is Scout ||
-                  Map.At(punkt.Next(herodir)) is Knight))
-            {
-                throw new FightException();
-            }
-            else
-            {
-                Mappables[0].Go(herodir);
-            }
+            Mappables[0].Go(herodir);
         }
     }
 
@@ -77,7 +59,12 @@ public class Game
 
             Point punkt = (Mappables[index] as Character)!.Position;
 
-            if (!(Map.At(punkt.Next(dir)) is Scout ||
+
+            if(Map.At(punkt.Next(dir)) is Hero)
+            {
+                throw new FightException();
+            }
+            else if (!(Map.At(punkt.Next(dir)) is Scout ||
                    Map.At(punkt.Next(dir)) is Knight))
             {
                 Mappables[index].Go(dir);

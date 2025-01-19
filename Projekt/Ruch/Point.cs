@@ -1,8 +1,13 @@
-﻿namespace Projekt;
+﻿using System.Text.Json.Serialization;
+
+namespace Projekt;
 
 public readonly struct Point
 {
+    [JsonInclude]
     public readonly int? X, Y, V, W;
+
+    [JsonConstructor]
     public Point(int? x, int? y, int? v, int? w) => (X, Y, V, W) = (x, y, v, w);
 
     public override string ToString() => $"({X}, {Y}, {V}, {W})";
@@ -92,4 +97,19 @@ public readonly struct Point
         }
         return outcome;
     }
+
+    public override bool Equals(object? obj)
+    {
+        return obj is Point other && 
+            X == other.X && 
+            Y == other.Y &&
+            V == other.V &&
+            W == other.W;
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(X, Y, V, W);
+    }
+
 }

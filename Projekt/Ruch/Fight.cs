@@ -16,16 +16,16 @@ public static class Fight
         bool unik_e;
         bool unik_h;
 
-        if(enemy is Knight)
+        if(enemy is Knight k)
         {
-            enemy_stat = (enemy as Knight)!.Defense;
+            enemy_stat = k.Defense;
             unik_e = false;
 
             if(hero.isKnight)
             //Knight vs Knight
             {
                 if (hero.Stat <= enemy_stat)
-                    hero_is_first = true;
+                    hero_is_first = !k.IsKing;
                 else
                     hero_is_first = false;
                 unik_h = false;
@@ -33,7 +33,7 @@ public static class Fight
             else
             //Scout vs Knight
             {
-                hero_is_first = true;
+                hero_is_first = !k.IsKing;
                 unik_h = true;
             }
         }
@@ -67,9 +67,6 @@ public static class Fight
     {
         Random autoRand = new Random();
         double rand = autoRand.NextDouble();
-
-        Hero heros = new('T');
-        var x = (heros as Character).HP;
 
         if(rand <= chance)
         {
@@ -111,13 +108,11 @@ public static class Fight
                     // Hero vs Scout
                     if(Dodge(e_stat))
                     {
-                        //Console.WriteLine($"{who} unika Twojego ciosu!");
                         hero_dmg = 0;
                     }
                     else
                     {
                         e_hp -= hero_dmg;
-                        //Console.WriteLine($"Zadajesz przeciwnikowi {hero_dmg} obrażeń!");
                     }
                 }
                 else
@@ -125,7 +120,6 @@ public static class Fight
                     // Hero vs Knight
                     hero_dmg = Math.Round(hero_dmg * (1 - e_stat), 2);
                     e_hp -= hero_dmg;
-                    //Console.WriteLine($"Zadajesz przeciwnikowi {hero_dmg} obrażeń!");
                 }
             }
             else
@@ -142,13 +136,11 @@ public static class Fight
                 //Scout vs Enemy
                 if (Dodge(h_stat))
                 {
-                    //Console.WriteLine("Unikasz ciosu przeciwnika!");
                     enemy_dmg = 0;
                 }
                 else
                 {
                     h_hp -= enemy_dmg;
-                    //Console.WriteLine($"{who} zadaje Ci {enemy_dmg} obrażeń!");
                 }
             }
             else
@@ -156,7 +148,6 @@ public static class Fight
                 //Knight vs Enemy
                 enemy_dmg = Math.Round(enemy_dmg * (1 - h_stat), 2);
                 h_hp -= enemy_dmg;
-                //Console.WriteLine($"{who} zadaje Ci {enemy_dmg} obrażeń!");
             }
 
             dict[counter] = new TurnCourse(

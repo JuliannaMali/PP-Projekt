@@ -19,7 +19,11 @@ public class WalkaModel : PageModel
     public required string HeroData { get; set; }
 
     [BindProperty(SupportsGet = true)]
-    public required string EnemyData { get; set; } 
+    public required string EnemyData { get; set; }
+
+    [BindProperty]
+    public int EarnedExp { get; set; }
+
 
     public void OnGet()
     {

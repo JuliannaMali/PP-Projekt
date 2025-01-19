@@ -1,15 +1,15 @@
 ﻿@page
 @model Map1Model
 @{
-    ViewData["Title"] = "Level 1";
+    ViewData["Title"] = "Level 2";
 }
 <link rel="stylesheet" href="~/css/Controller.css" asp-append-version="true" />
 <link rel="stylesheet" href="~/css/MapView.css" asp-append-version="true" />
-    
+
 <style type="text/css">
 
     header {
-        background-color: rgb(141, 156, 171);
+        background-color: rgb(30, 45, 64);
     }
 
     body {
@@ -26,30 +26,34 @@
         stroke-width: 3px;
     }
 
-    .trianglebutton{
-        background-color: rgb(72, 101, 88);
+    .trianglebutton {
+        background-color: rgb(16, 21, 27);
     }
 
-    div#mapa1 {
-        background-color: rgba(146, 189, 191, 0.2);
+    div#mapa2 {
+        background-color: rgba(24, 40, 54, 0.3);
     }
 
-    div#controller{
-        background-color: rgba(146, 189, 191, 0.2);
+    div#controller {
+        background-color: rgba(24, 40, 54, 0.3);
     }
 </style>
-
 
 <div id="container">
 
     <div id="controller">
+        <form method="post" asp-page-handler="Enemies" style="visibility:hidden;position:absolute;display:inline">
+            <button type="submit" id="ruchy" style="visibility:hidden;position:absolute;display:inline">Ruchy</button>
+        </form>
+        <span id="wait" style="color:crimson; font-size:35px; padding-top:300px;">Tura przeciwnika</span>
+
         <div id="top">
             <form method="post" asp-page-handler="TopLeft">
                 <button type="submit" class="trianglebutton" id="TopLeft"></button>
             </form>
             <form method="post" asp-page-handler="TopRight">
                 <button type="submit" class="trianglebutton" id="TopRight"></button>
-            </form> 
+            </form>
         </div>
         <div id="middle">
 
@@ -66,7 +70,7 @@
 
                 <polygon points="49.9,1.4   100,28.375  100,73.15   49.9,100.125  0,73.15  0,28.375" id="obramowka" />
 
-                @if ((App.Demo.Mappables[0] as Projekt.Postaci.Hero)!.isKnight)
+                @if ((App.Game1.Mappables[0] as Projekt.Postaci.Hero)!.isKnight)
                 {
                     <image id="heropic" href="/Images/characters/hero_knight_icon.png" width="5vw" height="10vh" x="0%" y="5%" />
                 }
@@ -92,17 +96,21 @@
         </div>
     </div>
 
-    <div id="mapa1">
-    
+
+
+
+    <div id="mapa2">
+
         @for (int y = Model.Game1.Map.SizeY - 1; y >= 0; y--)
         {
-            double mnoz = y*19.5-215;
+            double mnoz = y * 19.5 - 215;
             var actualmnoz = mnoz.ToString("0.0", System.Globalization.CultureInfo.InvariantCulture);
 
             <div id="rows" style="position:relative; top:@(actualmnoz)px;">
                 @for (int x = 0; x < Model.Game1.Map.SizeX; x++)
                 {
                     <div id="@x">
+
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
                             <defs>
                                 <clipPath id="clipPolygon3">
@@ -110,7 +118,7 @@
                                 </clipPath>
                             </defs>
 
-                            <polygon points="49.9,1.4   100,28.375  100,73.15   49.9,100.125  0,73.15  0,28.375" id="obramowka"/>
+                            <polygon points="49.9,1.4   100,28.375  100,73.15   49.9,100.125  0,73.15  0,28.375" id="obramowka" />
 
                             @{
                                 Projekt.Point punkt;
@@ -152,7 +160,7 @@
                                         {
                                             if ((element as Projekt.Postaci.Knight)!.IsKing)
                                             {
-                                                <image class="pic" id="pic@(y)@(x)" href="/Images/characters/king.png" width="auto" height="10vh" x="0%" y="0%" />
+                                                <image class="pic" id="pic@(y)@(x)" href="/Images/characters/King_icon.png" width="auto" height="10vh" x="0%" y="0%" />
                                                 <div class="lvl" id="lvl@(y)@(x)" style="visibility: hidden">
                                                     <p>@((element as Projekt.Postaci.Character)!.Level)</p>
                                                 </div>
@@ -172,14 +180,46 @@
                                         }
                                 }
                             }
-                        </svg>
 
+                        </svg>
                     </div>
                 }
             </div>
         }
+
     </div>
 
 </div>
-  
 
+@if (Model.EnemiesMove)
+{
+    <script>
+        const buttons = document.querySelectorAll('.trianglebutton');
+        const napis = document.getElementById('wait');
+        napis.style.visibility = 'visible';
+
+        const baseText = "Tura przeciwnika";
+
+        napis.textContent = baseText + ".".repeat(@Model.EnemiesCounter%4);
+
+        buttons.forEach(function(button) {
+                button.style.visibility = 'hidden';
+              });
+        document.getElementById("ruchy").click();
+    </script>
+
+}
+else
+{
+    <script>
+        const buttons = document.querySelectorAll('.trianglebutton');
+        const napis = document.getElementById('wait');
+        napis.style.visibility = 'hidden';
+
+        buttons.forEach(function(button) {
+                button.style.visibility = 'visible';
+              });
+    </script>
+}
+
+<script src="/js/level.js"></script>

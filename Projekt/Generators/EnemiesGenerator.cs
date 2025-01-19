@@ -36,6 +36,11 @@ public static class EnemiesGenerator
             }
             else
             {
+                if (lista.Count == 1)
+                {
+                    lista.Add(new Knight(10, 0.5, true));
+                }
+                
                 //Trudna mapa
                 int randomlvl = random.Next(6, 11);
                 if (randomtype == 1)
@@ -49,6 +54,7 @@ public static class EnemiesGenerator
                 {
                     //zakres 0.3 - 0.5
                     //Knight
+
                     double randomstat = random.NextDouble() * 0.01 + 0.04;
                     lista.Add(new Knight(randomlvl, Math.Round(randomstat*randomlvl, 2)));
                 }

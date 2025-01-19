@@ -12,8 +12,10 @@ public class Demo : PageModel
 {
     [BindProperty]
     public char HeroChoice { get; set; }
+
     [BindProperty]
     public required string HeroName { get; set; }
+
     public Game DemoGame => App.Demo;
     public int EnemiesCounter { get; set; }
     public bool EnemiesMove { get; set; } = true;
@@ -30,6 +32,20 @@ public class Demo : PageModel
         EnemiesCounter = HttpContext.Session.GetInt32("EnemiesCounter") ?? 0;
     }
 
+    public IActionResult OnPostReturnFromFight()
+    {
+        (DemoGame.Mappables[0] as Projekt.Postaci.Hero)!.Fight_won(HttpContext.Session.GetInt32("EarnedExp") ?? 0);
+        var pointJson = HttpContext.Session.GetString("EnemyPosition");
+
+        if (!string.IsNullOrEmpty(pointJson))
+        {
+            var enemyPosition = JsonSerializer.Deserialize<Projekt.Point>(pointJson);
+            App.Demo.Map.Remove(new Projekt.Point(enemyPosition.X, enemyPosition.Y, enemyPosition.V, enemyPosition.W));
+            DemoGame.Map = App.Demo.Map;
+        }
+        return Page();
+    }
+
     public void OnPostEnemies()
     {
         EnemiesCounter = HttpContext.Session.GetInt32("EnemiesCounter") ?? 1;
@@ -38,7 +54,7 @@ public class Demo : PageModel
         {
             DemoGame.EnemiesTurn(EnemiesCounter);
             EnemiesCounter++;
-            Thread.Sleep(500 + DemoGame.Mappables.Count * 20);
+            Thread.Sleep(DemoGame.Mappables.Count * 20);
         }
         else
         {
@@ -59,15 +75,26 @@ public class Demo : PageModel
         }
         catch (Projekt.Gra.Game.FightException)
         {
-            string enemyJson = JsonSerializer.Serialize((DemoGame.Map.At(((DemoGame.Mappables[0] as Hero)!.Position).Next(direction))) as Projekt.Postaci.Character);            
+            var jsonOptions = new JsonSerializerOptions { IncludeFields = true };
+
+            Projekt.Point sourcepoint = ((DemoGame.Mappables[0] as Hero)!.Position).Next(direction);
+
+            List<IMappable> enemy = [(DemoGame.Map.At(sourcepoint))];
+
+            string enemyJson = JsonSerializer.Serialize(enemy, jsonOptions);            
             string heroJson = JsonSerializer.Serialize((DemoGame.Mappables[0] as Projekt.Postaci.Hero));
 
-            return RedirectToPage("/Fight", new { HeroData = heroJson, EnemyData = enemyJson});
+            string pointJson = JsonSerializer.Serialize(sourcepoint);
+
+            HttpContext.Session.SetString("EnemyPosition", pointJson);
+
+            if ((DemoGame.Mappables[0] as Projekt.Postaci.Hero)!.Level == 1)
+                (DemoGame.Mappables[0] as Projekt.Postaci.Hero)!.Fight_won(500);
+
+            return RedirectToPage("/Fight", 
+                new { HeroData = heroJson, EnemyData = enemyJson, Source = "/Demo"});
         }
     }
-
-    // Przyk³ad wykorzystania w metodzie OnPost
-
     public IActionResult OnPostTopLeft()
     {
         var result = HandleHeroTurn(Projekt.Direction.TopLeft);
@@ -106,6 +133,8 @@ public class Demo : PageModel
         {
             Name = HeroName
         };
+
+        bohater.Fight_won(50);
 
         DemoGame.Map.Remove(new Projekt.Point(2, 0, null, null));
         DemoGame.Mappables[0] = bohater;

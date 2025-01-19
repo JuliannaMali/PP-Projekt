@@ -14,10 +14,8 @@ public class Hero : Character, IMappable
     private double defense = 0;
     private double agility = 0;
 
-    public bool isKnight;
-
     [JsonInclude]
-    private char Symbol;
+    public bool isKnight;
 
     //Mthds
 
@@ -27,13 +25,11 @@ public class Hero : Character, IMappable
     {
         if (t == 'K')
         {
-            Symbol = t;
             defense = 0.05;
             isKnight = true;
         }
         else
         {
-            Symbol = 't';
             agility = 0.06;
             isKnight = false;
         }
@@ -42,7 +38,20 @@ public class Hero : Character, IMappable
     }
 
     [JsonConstructor]
-    public Hero() { }
+    public Hero(int Exp_to_lvl_up, int Exp_owned, double Stat, string Name, bool isKnight, int Level) 
+    {
+        this.exp_to_lvl_up = Exp_to_lvl_up;
+        this.exp_owned = Exp_owned;
+        this.name = Name;
+        this.isKnight = isKnight;
+        this.lvl = Level;
+        if (isKnight)
+            this.defense = Stat;
+        else
+            this.agility = Stat;
+
+        this.hp = lvl * 50;
+    }
     public double Stat
     {
         get
@@ -65,7 +74,7 @@ public class Hero : Character, IMappable
 
     public void Fight_won(int exp_gained)
     {
-        exp_owned += exp_gained;
+        this.exp_owned += exp_gained;
         do
         {
             if (exp_owned >= exp_to_lvl_up)

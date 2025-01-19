@@ -20,11 +20,16 @@ public class Scout : Character, IMappable
         get => agility;
         set
         {
-            agility = Agility;
+            agility = value;
         }
     }
     public override string Info() => "Wrogi zwiadowca";
 
     [JsonConstructor]
-    public Scout() { }
+    public Scout(double Agility, int Level) 
+    {
+        this.hp = Level * 50;
+        this.agility = Agility;
+        this.lvl = Level;
+    }
 }

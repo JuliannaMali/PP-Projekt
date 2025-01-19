@@ -20,13 +20,24 @@ public class Knight : Character, IMappable
     public double Defense
     {
         get => defense;
+        set
+        {
+            defense = value;
+        }
     }
     public bool IsKing
     {
         get => isKing;
     }
-    public override string Info() => "Wrogi rycerz";
+    public override string Info() => isKing ? "Król" : "Wrogi rycerz";
+
 
     [JsonConstructor]
-    public Knight() { } 
+    public Knight(double Defense, int Level, bool IsKing)
+    {
+        this.hp = Level * 50;
+        this.defense = Defense;
+        this.lvl = Level;
+        isKing = IsKing;
+    }
 }

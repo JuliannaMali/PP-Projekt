@@ -28,7 +28,7 @@ public abstract class Map
 
     public void Remove(Point p)
     {
-        _fields.Remove(p);
+        _fields.Remove(p);        
     }
 
     public void Move(IMappable mappable, Point source, Point dest)

@@ -6,28 +6,26 @@ namespace Projekt.Postaci;
 [JsonPolymorphic(TypeDiscriminatorPropertyName = "Type")]
 [JsonDerivedType(typeof(Knight), nameof(Knight))]
 [JsonDerivedType(typeof(Scout), nameof(Scout))]
+[JsonDerivedType(typeof(Hero), nameof(Hero))]
 public abstract class Character : IMappable
 {
-    //Attributes
+    //Attributes, properties
+
+    protected int hp;
+    protected int lvl;
+
+    [JsonIgnore]
+    public int HP 
+    {
+        get => hp; 
+    }
+
     [JsonIgnore]
     public Map? Map { get; private set; }
     [JsonIgnore]
     public Point Position { get; private set; }
 
-    protected int hp;
-    protected int lvl;
-
     //Methods, Interface implementations
-    [JsonIgnore]
-    public int HP 
-    {
-        get => hp; 
-        set
-        {
-            hp = HP;
-        }
-    }
-    [JsonInclude]
     public int Level { get => lvl; }
 
     public virtual String Info() => "Postać bez klasy";

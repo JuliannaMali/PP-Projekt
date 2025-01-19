@@ -21,25 +21,15 @@ function zamiana2(lvl) {
 function pokaz() {
 
     this.style.visibility = "hidden";
-
     id = this.id;
-    console.log(id);
-    lvlid = id.slice(3);
-    console.log(lvlid);
-    
-
+    lvlid = id.slice(3);    
     document.getElementById("lvl"+lvlid).style.visibility = "visible";
 }
 
 function pokaz2() {
 
     this.style.visibility = "hidden";
-
     id = this.id;
-    console.log(id);
     lvlid = id.slice(3);
-    console.log(lvlid);
-
-
     document.getElementById("pic" + lvlid).style.visibility = "visible";
 }

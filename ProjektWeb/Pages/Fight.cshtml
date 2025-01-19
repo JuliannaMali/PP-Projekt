@@ -7,6 +7,8 @@
     var walka = Projekt.Ruch.Fight.FightStart(bohater, przeciwnik);
     var przebieg_walki = walka[1];
 
+    HttpContext.Session.SetInt32("EarnedExp", przeciwnik.Level*15);
+
     var _isKing = (przeciwnik is Projekt.Postaci.Knight k) ? k.IsKing : false;
 
     object[] hero_info = [
@@ -183,11 +185,8 @@
                             <button type="submit" id="wygrana" name="WinnerName" value="@bohater.Name" visibility:hidden;display:inline">P</button>
                         </form>
                     }
-
-                double exp = przeciwnik.Level * 15;
-                bohater.Fight_won((int) exp);
                 <p id="enemy_hp" style="visibility:hidden; position: absolute;">0</p>
-                    <p id="exp_z_walki">Wygrywasz i zdobywasz <span style="color:rgb(242, 222, 168); text-shadow: 0px 0px 4px #000">@exp pkt</span> doświadczenia!</p>
+                <p id="exp_z_walki">Wygrywasz i zdobywasz <span style="color:rgb(242, 222, 168); text-shadow: 0px 0px 4px #000">@(przeciwnik.Level * 15) pkt</span> doświadczenia!</p>
             }
             else
             {

@@ -19,7 +19,6 @@ public static class PositionsGenerator
                 lista.Add(p);
             }
         }
-
         return lista;
     }
 }
