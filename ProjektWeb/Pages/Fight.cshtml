@@ -2,11 +2,12 @@
 @model ProjektWeb.Pages.WalkaModel
 @{
     Projekt.Postaci.Hero bohater = Model.Hero;
-    Projekt.Postaci.Character przeciwnik = Model.Enemy;
-    bohater.Fight_won(9000);
+    Projekt.Postaci.Character przeciwnik = Model.Enemy;    
 
     var walka = Projekt.Ruch.Fight.FightStart(bohater, przeciwnik);
     var przebieg_walki = walka[1];
+
+    var _isKing = (przeciwnik is Projekt.Postaci.Knight k) ? k.IsKing : false;
 
     object[] hero_info = [
         ((Projekt.Ruch.Fight.WhoIsFighting)walka[0]).hero_name,
@@ -17,7 +18,6 @@
         ((Projekt.Ruch.Fight.WhoIsFighting)walka[0]).enemy_name,
         ((Projekt.Ruch.Fight.WhoIsFighting)walka[0]).enemy_stats
     ];
-
 }
 
 <link rel="stylesheet" href="~/css/Fight.css" asp-append-version="true" />
@@ -32,13 +32,15 @@
     *@
 
     body{
-        background: linear-gradient(180deg, rgba(234, 218, 206, 0.1) 50%, rgba(234, 218, 206,0.1) 100%), url(../Images/backgrounds/fight1_background.jpg);
-        background-repeat: no-repeat;
-        background-size: 100% 120%;
+    background: linear-gradient(180deg, rgba(234, 218, 206, 0.1) 50%, rgba(234, 218, 206,0.1) 100%), url(../Images/backgrounds/fight1_background.jpg);
+    background-repeat: no-repeat;
+    background-size: 100% 120%;
     }
-    
+
 
 </style>
+
+<krol style="visibility:hidden; position:absolute;">@_isKing</krol>
 
 <content id="content">
     <div class="container">
@@ -81,7 +83,7 @@
                 <div id="log-area"></div>
             </div>
             <div>
-                <form method="post" asp-page-handler="Enemies">
+                <form method="post" asp-page="@Model.Source" asp-page-handler="ReturnFromFight">
                     <button type="submit" id="powrot" style="visibility:hidden;display:inline">Powrót</button>
                 </form>
             </div>
@@ -96,7 +98,7 @@
                 {
                     if((przeciwnik as Projekt.Postaci.Knight)!.IsKing)
                     {
-                        <img src="~/Images/characters/king_fight.png" id="enemy_img" />
+                        <img src="~/Images/characters/King.png" id="enemy_img" />
                     }
                     else
                     {
@@ -132,52 +134,56 @@
 
 
     <button id="walka" style="visibility:hidden; position:relative; bottom:100vh;">Walcz!</button>
-    @{
-        var x = Projekt.Ruch.Fight.FightStart(bohater, przeciwnik)[1];
-    }
 
     @{
-        foreach (KeyValuePair<int, Projekt.Ruch.TurnCourse> element in (Dictionary<int, Projekt.Ruch.TurnCourse>)x)
+        foreach (KeyValuePair<int, Projekt.Ruch.TurnCourse> element in (Dictionary<int, Projekt.Ruch.TurnCourse>)przebieg_walki)
         {
             <log id="@element.Key" style="visibility:hidden; position:absolute; ">
 
-            @{/*cios bohatera*/}
+                @{/*cios bohatera*/}
 
-            @if(element.Value.hero_dmg > 0)
-            {
+                @if(element.Value.hero_dmg > 0)
+                {
                     <p class="linijka_b">Zadajesz <dmg>@element.Value.hero_dmg</dmg> obrażeń!</p>
-            }
-            else if (element.Value.hero_dmg == 0)
-            {
+                }
+                else if (element.Value.hero_dmg == 0)
+                {
                     <p class="linijka_b dodge"><dmg>@przeciwnik.Info() uniknął Twojego ciosu!</dmg></p>
-            }
-        
-            @{/*cios przeciwnika*/}
+                }
 
-            @if (element.Value.enem_dmg > 0 && element.Value.curr_enem_hp > 0)
-            {
+                @{/*cios przeciwnika*/}
+
+                @if (element.Value.enem_dmg > 0 && element.Value.curr_enem_hp > 0)
+                {
                     <p class="linijka_p">@przeciwnik.Info() zadaje Ci <dmg>@element.Value.enem_dmg</dmg> obrażeń!</p>
-            }
-            else if (element.Value.enem_dmg == 0)
-            {
+                }
+                else if (element.Value.enem_dmg == 0)
+                {
                     <p class="linijka_p dodge"><dodge>Unikasz ciosu przeciwnika!</dodge></p>
-            }
+                }
 
 
-            @if (@element.Value.curr_hero_hp <= 0)
-            {
+                @if (@element.Value.curr_hero_hp <= 0)
+                {
                 //game_over
-                <p id="hero_hp" style="visibility:hidden; position: absolute;">0</p>
-            }
-            else
-            {
+                    <p id="hero_hp" style="visibility:hidden; position: absolute;">0</p>
+                }
+                else
+                {
                 //walka toczy się dalej, chyba że przeciwnik umarł
-                <p id="hero_hp" style="visibility:hidden; position: absolute;">@element.Value.curr_hero_hp</p>
-            }
+                    <p id="hero_hp" style="visibility:hidden; position: absolute;">@element.Value.curr_hero_hp</p>
+                }
 
-            @if (@element.Value.curr_enem_hp <= 0)
-            {
-                //wygrana walka
+                @if (@element.Value.curr_enem_hp <= 0)
+                {
+                    //wygrana walka
+                    if (_isKing)
+                    {
+                        <form method="post" asp-page="/Win">
+                            <button type="submit" id="wygrana" name="WinnerName" value="@bohater.Name" visibility:hidden;display:inline">P</button>
+                        </form>
+                    }
+
                 double exp = przeciwnik.Level * 15;
                 bohater.Fight_won((int) exp);
                 <p id="enemy_hp" style="visibility:hidden; position: absolute;">0</p>
@@ -213,55 +219,49 @@
     const heroHPBar = document.querySelector('.hph');
     const enemyHPBar = document.querySelector('.hpe');
 
-    document.querySelector('#walka').addEventListener("click", async function() {
+    setTimeout(async function() {
 
-        console.log(tury.length);
-        console.log();
         for (let i = 1; i < tury.length; i++) 
         {
-            console.log(i);
-            let linijki_bohatera = tury[i].querySelectorAll('.linijka_b');
             let linijki_przeciwnika = tury[i].querySelectorAll('.linijka_p');
+            let linijki_bohatera = tury[i].querySelectorAll('.linijka_b');
 
-            //ruch bohatera
-            try
-            {
-                //heros żyje, atakuje
-                linijki_bohatera[0].innerHTML;
-                curr_enem_hp.innerHTML = after_hit_enem[i].innerHTML;
-                hero_image.style.animation = "heroAttack 1s cubic-bezier(0.25, 0.1, 0.25, 1)";
-
-                if(linijki_bohatera[0].classList.contains("dodge"))
+                //ruch bohatera
+                try
                 {
-                    //unik
-                    enemy_image.style.animation = "enemyDodge 1s cubic-bezier(0.25, 0.1, 0.25, 1)";
-                }            
-            }
-            catch(error)
-            {
-                //heros nie żyje, albo przeciwnik zaczyna
-                console.log('pierwszy błąd bohatera - śmierć / zaczyna przeciwnik')
-            }
-            
+                    //heros żyje, atakuje
+                    linijki_bohatera[0].innerHTML;
+                curr_enem_hp.innerHTML = after_hit_enem[i].innerHTML;
+                    hero_image.style.animation = "heroAttack 1s cubic-bezier(0.25, 0.1, 0.25, 1)";
 
+                    if(linijki_bohatera[0].classList.contains("dodge"))
+                    {
+                        //unik
+                        enemy_image.style.animation = "enemyDodge 1s cubic-bezier(0.25, 0.1, 0.25, 1)";
+                    }            
+                }
+                catch(error)
+                {
+                    //heros nie żyje, albo przeciwnik zaczyna
+                    console.log('pierwszy błąd bohatera - śmierć / zaczyna przeciwnik')
+                }
 
-            let enemyhpPercentage = ((Number(curr_enem_hp.textContent.replace(',', '.'))) / enemy_max_hp) * 100;
-            enemyHPBar.style.width = enemyhpPercentage + '%';
-            let e_hue = (enemyhpPercentage * 120) / 100;
-            enemyHPBar.style.backgroundColor = `hsl(${e_hue}, 100%, 35%)`;
+                let enemyhpPercentage = ((Number(curr_enem_hp.textContent.replace(',', '.'))) / enemy_max_hp) * 100;
+                enemyHPBar.style.width = enemyhpPercentage + '%';
+                let e_hue = (enemyhpPercentage * 120) / 100;
+                enemyHPBar.style.backgroundColor = `hsl(${e_hue}, 100%, 35%)`;
 
-            try
-            {
-                logi.innerHTML += linijki_bohatera[0].innerHTML + "<br />";
-            } 
-            catch (error)
-            {
-                console.log('drugi błąd bohatera - brak linijki bohatera');
-            }
+                try
+                {
+                    logi.innerHTML += linijki_bohatera[0].innerHTML + "<br />";
+                } 
+                catch (error)
+                {
+                    console.log('drugi błąd bohatera - brak linijki bohatera');
+                }
 
             await new Promise(resolve => setTimeout(resolve, 1100));
             hero_image.style.animation = "";
-
 
             //ruch przeciwnika
             try
@@ -273,7 +273,6 @@
             {
                 console.log('pierwszy błąd przeciwnika - brak linijek');
             }
-
 
             if(Number(curr_enem_hp.textContent.replace(',', '.') > 0))
             {
@@ -298,7 +297,6 @@
             let h_hue = (herohpPercentage * 120) / 100;
             heroHPBar.style.backgroundColor = `hsl(${h_hue}, 100%, 35%)`;
 
-
             try
             {
                 logi.innerHTML += linijki_przeciwnika[0].innerHTML + "<br />";
@@ -309,29 +307,21 @@
             }
             await new Promise(resolve => setTimeout(resolve, 1100));
             enemy_image.style.animation = "";
-            console.log()
+        }
+
+        if(document.querySelector('krol').innerHTML == "True") 
+        {
+            document.querySelector('#wygrana').click();
         }
 
         try
         {
-            if(przeciwnik is Projekt.Postaci.Knight)
-            {
-                if((przeciwnik as Projekt.Postaci.Knight)!.IsKing)
-                { 
-                    setTimeout(
-                            function() {window.location.href = '/Win'}, 2000)
+            let exp = document.querySelector('#exp_z_walki').innerHTML;
+            logi.innerHTML += exp;
+            enemy_image.style.animation = "defeat 1s ease forwards";
 
-                else
-                {
-                    let exp = document.querySelector('#exp_z_walki').innerHTML;
-                    logi.innerHTML += exp;
-                    enemy_image.style.animation = "defeat 1s ease forwards";
+            setTimeout(function() {document.querySelector("#powrot").style.visibility = "visible";}, 1000);
 
-                    setTimeout(
-                    function() {document.querySelector("#powrot").style.visibility = "visible";}, 1000)
-
-                }
-            }
         }
         catch(error)
         {
@@ -339,17 +329,7 @@
             hero_image.style.animation = "defeat 1s ease forwards";
             console.log('pierwszy błąd pasek expa');
 
-            setTimeout(
-            function() {window.location.href = '/Loss'}, 2000)
+            setTimeout(function() {window.location.href = '/Loss'}, 2000);
         }
-
-
-    });
-
-    setTimeout(
-        function() { document.querySelector('#walka').click()} , 500);
-
-
-
-
+    }, 500);
 </script>
