@@ -24,23 +24,31 @@
 
 <link rel="stylesheet" href="~/css/Fight.css" asp-append-version="true" />
 
-<style type="text/css">
-    @*wersja 2
-    body {
-        background: linear-gradient(180deg, rgba(234, 218, 206, 0.1) 50%, rgba(234, 218, 206,0.1) 100%), url(../Images/backgrounds/fight2_background.jpg);
-        background-repeat: no-repeat;
-        background-size: 100% 120%;
+
+@{
+    if(Model.Source == "/Map1")
+    {
+        <style type="text/css">
+            body 
+            {
+                background: linear-gradient(180deg, rgba(234, 218, 206, 0.1) 50%, rgba(234, 218, 206,0.1) 100%), url(../Images/backgrounds/fight1_background.jpg);
+                background-repeat: no-repeat;
+                background-size: 100% 120%;
+            }
+        </style>
     }
-    *@
-
-    body{
-    background: linear-gradient(180deg, rgba(234, 218, 206, 0.1) 50%, rgba(234, 218, 206,0.1) 100%), url(../Images/backgrounds/fight1_background.jpg);
-    background-repeat: no-repeat;
-    background-size: 100% 120%;
+    else
+    {
+        <style type="text/css">
+            body 
+            {
+                background: linear-gradient(180deg, rgba(234, 218, 206, 0.1) 50%, rgba(234, 218, 206,0.1) 100%), url(../Images/backgrounds/fight2_background.jpg);
+                background-repeat: no-repeat;
+                background-size: 100% 120%;
+            }
+        </style>
     }
-
-
-</style>
+}
 
 <krol style="visibility:hidden; position:absolute;">@_isKing</krol>
 

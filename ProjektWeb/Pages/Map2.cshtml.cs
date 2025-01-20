@@ -39,7 +39,6 @@ public class Map2Model : PageModel
     public IActionResult OnPostReturnFromFight()
     {
         (Game2.Mappables[0] as Projekt.Postaci.Hero)!.Fight_won(HttpContext.Session.GetInt32("EarnedExp") ?? 0);
-
         var pointJson = HttpContext.Session.GetString("EnemyPosition");
 
         if (!string.IsNullOrEmpty(pointJson))
@@ -51,15 +50,35 @@ public class Map2Model : PageModel
         return Page();
     }
 
-    public void OnPostEnemies()
+    public IActionResult OnPostEnemies()
     {
         EnemiesCounter = HttpContext.Session.GetInt32("EnemiesCounter") ?? 1;
 
         if (EnemiesCounter < Game2.Mappables.Count)
         {
-            Game2.EnemiesTurn(EnemiesCounter);
-            EnemiesCounter++;
-            Thread.Sleep(Game2.Mappables.Count * 20);
+            try
+            {
+                Game2.EnemiesTurn(EnemiesCounter);
+                EnemiesCounter++;
+                Thread.Sleep(Game2.Mappables.Count * 20);
+            }
+            catch (Projekt.Gra.Game.FightException)
+            {
+                var jsonOptions = new JsonSerializerOptions { IncludeFields = true };
+
+                Projekt.Point sourcepoint = ((Game2.Mappables[EnemiesCounter] as Character)!.Position);
+
+                List<IMappable> enemy = [(Game2.Map.At(sourcepoint))];
+
+                string enemyJson = JsonSerializer.Serialize(enemy, jsonOptions);
+                string heroJson = JsonSerializer.Serialize((Game2.Mappables[0] as Projekt.Postaci.Hero));
+
+                string pointJson = JsonSerializer.Serialize(sourcepoint);
+
+                HttpContext.Session.SetString("EnemyPosition", pointJson);
+
+                return RedirectToPage("/Fight", new { HeroData = heroJson, EnemyData = enemyJson, Source = "/Map1" });
+            }
         }
         else
         {
@@ -68,6 +87,7 @@ public class Map2Model : PageModel
         }
 
         HttpContext.Session.SetInt32("EnemiesCounter", EnemiesCounter);
+        return Page();
     }
 
     // Metoda do obs³ugi ruchów

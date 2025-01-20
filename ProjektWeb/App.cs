@@ -19,18 +19,6 @@ public static class App
             new FiniteMap(17, 14),
             Projekt.Generators.EnemiesGenerator.Generate(new FiniteMap(17, 14), heros),
             Projekt.Generators.PositionsGenerator.Generate(21)
-            );        
-        
-        Game1 = new Game(
-            new FiniteMap(5, 6),
-            new List<IMappable> {
-                heros,
-                new Scout(2, 0.00),
-                new Scout(2, 0.00)},
-            new List<Point> {
-                new Point(2, 0, null, null),
-                new Point(2, 0, null, null),
-                new Point(3, 0, null, null)}
             );
 
         Game2 = new Game(

@@ -40,21 +40,42 @@ public class Demo : PageModel
         if (!string.IsNullOrEmpty(pointJson))
         {
             var enemyPosition = JsonSerializer.Deserialize<Projekt.Point>(pointJson);
+            DemoGame.Mappables.Remove(DemoGame.Map.At(enemyPosition));
             App.Demo.Map.Remove(new Projekt.Point(enemyPosition.X, enemyPosition.Y, enemyPosition.V, enemyPosition.W));
             DemoGame.Map = App.Demo.Map;
         }
         return Page();
     }
 
-    public void OnPostEnemies()
+    public IActionResult OnPostEnemies()
     {
         EnemiesCounter = HttpContext.Session.GetInt32("EnemiesCounter") ?? 1;
 
         if (EnemiesCounter < DemoGame.Mappables.Count)
         {
-            DemoGame.EnemiesTurn(EnemiesCounter);
-            EnemiesCounter++;
-            Thread.Sleep(DemoGame.Mappables.Count * 20);
+            try
+            {
+                DemoGame.EnemiesTurn(EnemiesCounter);
+                EnemiesCounter++;
+                Thread.Sleep(DemoGame.Mappables.Count * 20);
+            }
+            catch (Projekt.Gra.Game.FightException)
+            {
+                var jsonOptions = new JsonSerializerOptions { IncludeFields = true };
+
+                Projekt.Point sourcepoint = ((DemoGame.Mappables[EnemiesCounter] as Character)!.Position);
+
+                List<IMappable> enemy = [(DemoGame.Map.At(sourcepoint))];
+
+                string enemyJson = JsonSerializer.Serialize(enemy, jsonOptions);
+                string heroJson = JsonSerializer.Serialize((DemoGame.Mappables[0] as Projekt.Postaci.Hero));
+
+                string pointJson = JsonSerializer.Serialize(sourcepoint);
+
+                HttpContext.Session.SetString("EnemyPosition", pointJson);
+
+                return RedirectToPage("/Fight", new { HeroData = heroJson, EnemyData = enemyJson, Source = "/Map1" });
+            }
         }
         else
         {
@@ -63,6 +84,7 @@ public class Demo : PageModel
         }
 
         HttpContext.Session.SetInt32("EnemiesCounter", EnemiesCounter);
+        return Page();
     }
 
     // Metoda do obs³ugi ruchów

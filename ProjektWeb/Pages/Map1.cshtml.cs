@@ -167,12 +167,10 @@ public class Map1Model : PageModel
         {
             Name = HeroName
         };
-        bohater.Fight_won(500); 
 
-
-        Game1.Map.Remove(new Projekt.Point(2, 0, null, null));
+        Game1.Map.Remove(new Projekt.Point(null, null, 8, 0));
         Game1.Mappables[0] = bohater;
-        Game1.Map.Add(bohater, new Projekt.Point(2, 0, null, null));
+        Game1.Map.Add(bohater, new Projekt.Point(null, null, 8, 0));
     }
 
     private bool MapIsCleared()
